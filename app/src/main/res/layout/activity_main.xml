@@ -11,33 +11,46 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_begin="206dp"
+        app:layout_constraintGuide_begin="160dp"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btn_login"
         android:layout_width="250dp"
-        android:layout_height="55dp"
+        android:layout_height="39dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="120dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="96dp"
+        android:layout_marginEnd="32dp"
         android:background="@color/colorPrimary"
         android:text="Login"
-        android:textSize="25sp"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/btn_register"
         android:layout_width="250dp"
-        android:layout_height="0dp"
+        android:layout_height="39dp"
         android:layout_gravity="center"
-        android:layout_marginBottom="48dp"
-        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="32dp"
         android:background="@color/colorPrimary"
         android:text="Register"
-        android:textSize="25sp"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="241dp"
+        android:layout_height="305dp"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintHorizontal_bias="0.327"
+        app:layout_constraintStart_toStartOf="@+id/guideline"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo" />
 
 </android.support.constraint.ConstraintLayout>
