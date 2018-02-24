@@ -188,6 +188,7 @@
         android:layout_marginLeft="16dp"
         android:text="What I have eaten today..."
         android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintLeft_toLeftOf="parent" />
 
