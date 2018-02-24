@@ -123,61 +123,158 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/editText3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:paddingLeft="30dp"
-                android:text="Rice" />
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/editText4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:paddingLeft="30dp"
-                android:text="Milk" />
+                <EditText
+                    android:id="@+id/editText3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="30dp"
+                    android:text="Rice" />
+
+                <Button
+                    android:id="@+id/clr1"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="19dp"
+                    android:layout_marginRight="19dp"
+                    android:background="@android:drawable/ic_delete" />
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/editText4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="30dp"
+                    android:text="Banana" />
+
+                <Button
+                    android:id="@+id/clr2"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="19dp"
+                    android:layout_marginRight="19dp"
+                    android:background="@android:drawable/ic_delete" />
+            </RelativeLayout>
 
 
-            <EditText
-                android:id="@+id/editText5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:paddingLeft="30dp"
-                android:text="Apple" />
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/editText6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:paddingLeft="30dp"
-                android:text="Banana" />
+                <EditText
+                    android:id="@+id/editText5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="30dp"
+                    android:text="Milk" />
 
-            <EditText
-                android:id="@+id/editText7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:paddingLeft="30dp"
-                android:text="Bread" />
+                <Button
+                    android:id="@+id/cl3"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="19dp"
+                    android:layout_marginRight="19dp"
+                    android:background="@android:drawable/ic_delete" />
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/editText6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="30dp"
+                    android:text="Chicken" />
+
+                <Button
+                    android:id="@+id/cl4"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="19dp"
+                    android:layout_marginRight="19dp"
+                    android:background="@android:drawable/ic_delete" />
+            </RelativeLayout>
 
 
-            <EditText
-                android:id="@+id/editText8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:paddingLeft="30dp"
-                android:text="Taco" />
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/editText7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="30dp"
+                    android:text="Orange" />
+
+                <Button
+                    android:id="@+id/cl5"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="19dp"
+                    android:layout_marginRight="19dp"
+                    android:background="@android:drawable/ic_delete" />
+            </RelativeLayout>
+
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/editText8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="30dp"
+                    android:text="Dumpling" />
+
+                <Button
+                    android:id="@+id/cl6"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="19dp"
+                    android:layout_marginRight="19dp"
+                    android:background="@android:drawable/ic_delete" />
+            </RelativeLayout>
         </LinearLayout>
 
     </ScrollView>
