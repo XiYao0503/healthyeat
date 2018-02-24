@@ -4,57 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/grey">
+    android:background="@color/grey"
+    tools:layout_editor_absoluteY="25dp">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/input_bar"
         android:layout_width="348dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="51dp"
+        android:layout_height="56dp"
         android:background="@color/colorPrimary"
         android:theme="@style/AppTheme"
-        app:layout_constraintBottom_toTopOf="@+id/data_view"
-        app:layout_constraintStart_toStartOf="@+id/timebar"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
-        android:layout_marginEnd="100dp"
+        android:layout_marginTop="8dp"
         android:text="HealthyEat"
         android:textAlignment="center"
         android:textAppearance="@style/Toolbar.TitleText"
         android:textSize="24sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="@+id/input_bar"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/profile_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="13dp"
         android:layout_marginStart="6dp"
-        android:layout_marginTop="9dp"
+        android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@+id/timebar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_action_name" />
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/timebar"
-        android:layout_width="322dp"
-        android:layout_height="32dp"
-        android:layout_marginBottom="8dp"
-        android:background="@android:color/white"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
-        app:layout_constraintBottom_toBottomOf="@+id/today_txt"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_btn" />
 
     <TextView
         android:id="@+id/today_txt"
@@ -71,27 +56,29 @@
 
     <TextView
         android:id="@+id/data_view"
-        android:layout_width="292dp"
-        android:layout_height="108dp"
-        android:layout_marginBottom="293dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="22dp"
         android:background="@android:color/white"
         android:text="TextView"
         android:textSize="1sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/textView3"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/today_txt" />
 
     <EditText
         android:id="@+id/goal_num"
-        android:layout_width="285dp"
+        android:layout_width="0dp"
         android:layout_height="45dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
 
-        android:layout_marginTop="8dp"
+        android:layout_marginBottom="39dp"
+        android:layout_marginEnd="17dp"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="38dp"
         android:ems="10"
         android:hint=" "
         android:inputType="number"
@@ -99,11 +86,10 @@
         android:singleLine="false"
         android:textAppearance="@android:style/TextAppearance.Holo.Medium"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/data_view"
+        app:layout_constraintBottom_toBottomOf="@+id/goal_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/data_view"
-        app:layout_constraintVertical_bias="0.148"
+        app:layout_constraintTop_toBottomOf="@+id/today_txt"
         tools:text="1677  -  894  -  235      =   1018 " />
 
     <TextView
@@ -111,60 +97,108 @@
         android:layout_width="254dp"
         android:layout_height="38dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:text="Goal - Food - Exercise = Net"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/data_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/data_view"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="284dp"
+        android:layout_height="189dp"
+        android:layout_marginLeft="20dp"
+        android:background="@android:color/white"
+        android:scrollbarStyle="outsideOverlay"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.806">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/editText3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:paddingLeft="30dp"
+                android:text="Rice" />
+
+            <EditText
+                android:id="@+id/editText4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:paddingLeft="30dp"
+                android:text="Milk" />
+
+
+            <EditText
+                android:id="@+id/editText5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:paddingLeft="30dp"
+                android:text="Apple" />
+
+            <EditText
+                android:id="@+id/editText6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:paddingLeft="30dp"
+                android:text="Banana" />
+
+            <EditText
+                android:id="@+id/editText7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:paddingLeft="30dp"
+                android:text="Bread" />
+
+
+            <EditText
+                android:id="@+id/editText8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:paddingLeft="30dp"
+                android:text="Taco" />
+        </LinearLayout>
+
+    </ScrollView>
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
-        android:layout_height="27dp"
-        android:layout_marginBottom="256dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:layout_marginLeft="16dp"
         android:text="What I have eaten today..."
-        android:textAppearance="@android:style/TextAppearance.DeviceDefault.Small"
-        android:textColor="@android:color/black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.055"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <ImageButton
         android:id="@+id/add_btn"
-        style="@android:style/Widget.ImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_width="45dp"
+        android:layout_height="35dp"
         android:background="@color/grey"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
-    <ListView
-        android:id="@+id/food_list"
-        android:layout_width="304dp"
-        android:layout_height="208dp"
-        android:layout_marginBottom="48dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@drawable/common_google_signin_btn_icon_dark_normal_background"
-        android:entries="@array/food_array"
-        android:scrollbars="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:srcCompat="@android:drawable/ic_input_add"
+        tools:layout_editor_absoluteY="467dp" />
 
 </android.support.constraint.ConstraintLayout>
