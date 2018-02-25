@@ -6,4 +6,14 @@
         <item>Apple</item>
         <item>Orange</item>
     </string-array>
+
+    <string name="gender">gender</string>
+
+    <string-array name="gender_list">
+        <item>Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Secret</item>
+    </string-array>
+
 </resources>
