@@ -55,7 +55,6 @@
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/black"
-        android:textSize="android:textAlignment"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/goal_num"
         app:layout_constraintEnd_toEndOf="@+id/input_bar"
