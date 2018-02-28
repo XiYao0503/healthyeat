@@ -16,4 +16,18 @@
         <item>Secret</item>
     </string-array>
 
+
+    <string name="country_prompt">Serving Size</string>
+
+    <string-array name="country_arrays">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+    </string-array>
+
 </resources>
