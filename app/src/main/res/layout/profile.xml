@@ -9,14 +9,14 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/bar"
-        android:layout_width="348dp"
-        android:layout_height="55dp"
+        android:layout_width="362dp"
+        android:layout_height="54dp"
         android:layout_marginBottom="8dp"
         android:background="@color/colorPrimary"
         android:theme="@style/AppTheme"
         app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.892"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
@@ -78,15 +78,15 @@
         android:id="@+id/pound2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="116dp"
+        android:layout_marginBottom="136dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="pounds"
+        android:text="lb"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.17"
+        app:layout_constraintHorizontal_bias="0.76"
         app:layout_constraintStart_toEndOf="@+id/weightinput2" />
 
     <TextView
@@ -121,27 +121,28 @@
         android:id="@+id/weightinput"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="60dp"
         android:ems="10"
         android:hint="curWeight"
-        android:textSize="12dp"
         android:inputType="textPersonName"
+        android:textSize="12dp"
         app:layout_constraintStart_toEndOf="@+id/weight1"
         app:layout_constraintTop_toBottomOf="@+id/heightinput" />
 
     <TextView
         android:id="@+id/pound1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="64dp"
+        android:layout_width="33dp"
+        android:layout_height="18dp"
+        android:layout_marginBottom="48dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="pounds"
+        android:text="lb"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/pound2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.887"
         app:layout_constraintStart_toEndOf="@+id/weightinput" />
 
     <TextView
@@ -163,13 +164,13 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="148dp"
+        android:layout_marginTop="160dp"
         android:ems="10"
         android:hint="curHeight"
-        android:textSize="12dp"
         android:inputType="textPersonName"
+        android:textSize="12dp"
         app:layout_constraintEnd_toStartOf="@+id/inch"
-        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintHorizontal_bias="0.246"
         app:layout_constraintStart_toEndOf="@+id/height"
         app:layout_constraintTop_toBottomOf="@+id/bar" />
 
@@ -177,8 +178,8 @@
         android:id="@+id/inch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="48dp"
+        android:layout_marginEnd="16dp"
         android:text="inch"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
@@ -190,16 +191,16 @@
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="4dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="32dp"
         android:ems="10"
         android:hint="TargetWeight"
-        android:textSize="12dp"
         android:inputType="textPersonName"
+        android:textSize="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/weight2"
         app:layout_constraintTop_toBottomOf="@+id/weightinput"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.296" />
 
     <Button
         android:id="@+id/button2"
@@ -218,16 +219,15 @@
 
     <ImageButton
         android:id="@+id/imageButton2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="56dp"
         android:layout_marginBottom="8dp"
 
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="@+id/bar"
         app:layout_constraintStart_toStartOf="@+id/bar"
         app:layout_constraintTop_toTopOf="@+id/bar"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/bakk" />
 
 
