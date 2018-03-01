@@ -131,28 +131,15 @@
         android:layout_width="116dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="363dp"
+        android:entries="@array/country_arrays"
+        android:prompt="@string/country_prompt"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageButton19"
         app:layout_constraintStart_toEndOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/spinner6"
         app:layout_constraintVertical_bias="0.017" />
 
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="72dp"
-        android:layout_height="27dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/grey"
-        android:text="@string/size"
-        android:textAlignment="center"
-        android:textColor="@color/cardview_dark_background"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/spinner8"
-        app:layout_constraintStart_toStartOf="@+id/spinner6"
-        app:layout_constraintTop_toTopOf="@+id/spinner6" />
+
 
     <ImageButton
         android:id="@+id/imageButton19"
@@ -165,24 +152,6 @@
         app:layout_constraintTop_toBottomOf="@+id/imageButton17"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/checkbox_on_background" />
-
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="70dp"
-        android:layout_height="26dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@color/grey"
-        android:text="@string/size"
-        android:textAlignment="center"
-        android:textColor="@color/cardview_dark_background"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/spinner8"
-        app:layout_constraintStart_toStartOf="@+id/spinner8"
-        app:layout_constraintTop_toTopOf="@+id/spinner8" />
 
     <ImageButton
         android:id="@+id/back_btn"

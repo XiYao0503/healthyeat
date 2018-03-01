@@ -15,7 +15,7 @@ public class Register2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.register2);
 
-        final ImageButton button_back = (ImageButton)findViewById(R.id.imageButton2);
+        final ImageButton button_back = (ImageButton)findViewById(R.id.back_btn);
         button_back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(Register2Activity.this, RegisterActivity.class);

@@ -27,6 +27,8 @@
         android:text="@string/app_name"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/background_light"
+        android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -51,6 +53,10 @@
         android:layout_marginEnd="32dp"
         android:layout_marginTop="56dp"
 
+        android:background="@android:color/white"
+        android:paddingVertical="10dp"
+        android:text="@string/today"
+        android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@android:color/black"
         app:layout_constraintEnd_toEndOf="@+id/input_bar"
@@ -83,10 +89,10 @@
         android:layout_marginStart="8dp"
 
         android:gravity="center_vertical"
-        android:text="Goal  -  total food  =  Net"
+        android:text="@string/goal"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-
+        android:textColor="@android:color/black"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/data_view"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,6 +103,7 @@
         android:id="@+id/left"
         android:layout_width="114dp"
         android:layout_height="28dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Left Calories:"
@@ -121,8 +128,10 @@
         android:selectAllOnFocus="false"
 
         android:singleLine="false"
-        android:text="1677  -  894  =   1018 "
+        android:text="@string/calory_num"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+        android:textColor="@android:color/black"
+
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/goal_name"
         app:layout_constraintEnd_toEndOf="@+id/data_view"
@@ -152,14 +161,15 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <TextView
                     android:id="@+id/editText3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:paddingLeft="30dp"
-                    android:text="Rice" />
+                    android:text="Rice"
+                    android:textSize="24sp" />
 
                 <Button
                     android:id="@+id/clr1"
@@ -177,14 +187,15 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <TextView
                     android:id="@+id/editText4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:paddingLeft="30dp"
-                    android:text="Banana" />
+                    android:text="Banana"
+                    android:textSize="24sp" />
 
                 <Button
                     android:id="@+id/clr2"
@@ -203,14 +214,15 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <TextView
                     android:id="@+id/editText5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:paddingLeft="30dp"
-                    android:text="Milk" />
+                    android:text="Milk"
+                    android:textSize="24sp" />
 
                 <Button
                     android:id="@+id/cl3"
@@ -228,14 +240,15 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <TextView
                     android:id="@+id/editText6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:paddingLeft="30dp"
-                    android:text="Chicken" />
+                    android:text="Chicken"
+                    android:textSize="24sp" />
 
                 <Button
                     android:id="@+id/cl4"
@@ -254,14 +267,15 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <TextView
                     android:id="@+id/editText7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:paddingLeft="30dp"
-                    android:text="Orange" />
+                    android:text="Orange"
+                    android:textSize="24sp" />
 
                 <Button
                     android:id="@+id/cl5"
@@ -280,17 +294,123 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
 
-                <EditText
+                <TextView
                     android:id="@+id/editText8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:paddingLeft="30dp"
-                    android:text="Dumpling" />
+                    android:text="Dumpling"
+                    android:textSize="24sp" />
 
                 <Button
                     android:id="@+id/cl6"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="19dp"
+                    android:layout_marginRight="19dp"
+                    android:background="@android:drawable/ic_delete" />
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/coffee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="30dp"
+                    android:text="coffee"
+                    android:textSize="24sp" />
+
+                <Button
+                    android:id="@+id/c1"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="19dp"
+                    android:layout_marginRight="19dp"
+                    android:background="@android:drawable/ic_delete" />
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/juice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="30dp"
+                    android:text="juice"
+                    android:textSize="24sp" />
+
+                <Button
+                    android:id="@+id/c2"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="19dp"
+                    android:layout_marginRight="19dp"
+                    android:background="@android:drawable/ic_delete" />
+            </RelativeLayout>
+
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/wine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="30dp"
+                    android:text="wine"
+                    android:textSize="24sp" />
+
+                <Button
+                    android:id="@+id/c3"
+                    android:layout_width="30dip"
+                    android:layout_height="30dip"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="19dp"
+                    android:layout_marginRight="19dp"
+                    android:background="@android:drawable/ic_delete" />
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/egg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:paddingLeft="30dp"
+                    android:text="egg"
+                    android:textSize="24sp" />
+
+                <Button
+                    android:id="@+id/c4"
                     android:layout_width="30dip"
                     android:layout_height="30dip"
                     android:layout_alignParentEnd="true"
@@ -308,12 +428,15 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="What I have eaten today..."
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="180dp"
+        android:text="@string/intro_eat"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textColor="@android:color/black"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="242dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/today_txt" />
 
 
     <ImageButton
