@@ -1,5 +1,31 @@
 <resources>
-    <string name="app_name">HealthyEats</string>
+    <string name="app_name">Healthy Eats</string>
+    <string name="profile_name">Profile</string>
+    <string name="register_name">Register</string>
+    <string name="food_info">Food Info</string>
+    <string name="intro_eat">What did you eat today?</string>
+    <string name="back">back</string>
+    <string name="height">Height</string>
+    <string name="curweight">Current Weight</string>
+    <string name="tarweight">Target Weight</string>
+    <string name="inch">in</string>
+    <string name="pounds">lbs</string>
+    <string name="next_step">Next Step</string>
+    <string name="birth">Birthday(MM/DD/YYYY)</string>
+    <string name="password">Password</string>
+    <string name="confirm">Confirm Password</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="camera">camera</string>
+    <string name="find">find</string>
+    <string name="size">Size</string>
+    <string name="today">Today</string>
+    <string name="done">done</string>
+    <string name="user">Taylor Swift</string>
+    <string name="serve">Serving Size</string>
+    <string name="numver_serve">Number of Servings</string>
+    <string name="login">Login</string>
+
     <string-array name="food_array">
         <item>Rice</item>
         <item>Milk</item>
