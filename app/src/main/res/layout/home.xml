@@ -467,6 +467,17 @@
         app:layout_constraintTop_toTopOf="@+id/today_txt"
         app:srcCompat="@drawable/back_black" />
 
+    <ImageButton
+        android:id="@+id/log_out2"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/log_out" />
+
 
 
 </android.support.constraint.ConstraintLayout>

@@ -24,7 +24,7 @@ public class FoodInfoActivity extends AppCompatActivity {
         final ImageButton button_back = (ImageButton)findViewById(R.id.imageButton2);
         button_back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(FoodInfoActivity.this, HomeActivity.class);
+                Intent intent = new Intent(FoodInfoActivity.this, UserInputActivity.class);
                 startActivity(intent);
             }
         });
