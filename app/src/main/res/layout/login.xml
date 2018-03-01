@@ -55,6 +55,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
 
+
     <android.support.v7.widget.Toolbar
         android:id="@+id/login_bar"
         android:layout_width="348dp"
@@ -81,12 +82,28 @@
         android:layout_width="27dp"
         android:layout_height="34dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="@+id/login_bar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/back_new" />
+        app:srcCompat="@drawable/bakk" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="135dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Healthy Eats"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/login_bar" />
+
+
 </android.support.constraint.ConstraintLayout>
