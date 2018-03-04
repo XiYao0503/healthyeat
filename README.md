@@ -2,6 +2,7 @@
 HealthyEats mobile app
 
 Main Features and Workflow:
+
 1.Welcome (activity_main.xml)
 Display the logo of our app. User can get to register or login page from here.
 
