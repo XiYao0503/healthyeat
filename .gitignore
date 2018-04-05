@@ -4,9 +4,4 @@
 .idea/*
 *.iml
 */build/
-<<<<<<< HEAD
-*~
-
-=======
-*~
->>>>>>> cheng
+local.properties
