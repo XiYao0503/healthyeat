@@ -4,5 +4,4 @@
 *.iml
 local.properties
 .DS_Store
-.idea/
 /app/google-services.json
