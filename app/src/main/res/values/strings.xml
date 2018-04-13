@@ -5,13 +5,15 @@
     <string name="food_info">Food Info</string>
     <string name="intro_eat">What did you eat today?</string>
     <string name="back">back</string>
-    <string name="height">Height</string>
+    <string name="height">Current Height</string>
     <string name="curweight">Current Weight</string>
-    <string name="tarweight">Target Weight</string>
-    <string name="inch">in</string>
+    <string name="daily_exercise">Daily Exercise</string>
     <string name="pounds">lbs</string>
+    <string name="inch">in</string>
+    <string name="cal_day">cal/d</string>
     <string name="next_step">Next Step</string>
-    <string name="birth">Birthday(MM/DD/YYYY)</string>
+    <string name="age">Age</string>
+    <string name="year">years</string>
     <string name="password">Password</string>
     <string name="confirm">Confirm Password</string>
     <string name="username">Username</string>
@@ -21,7 +23,7 @@
     <string name="size">Size</string>
     <string name="today">Today</string>
     <string name="done">done</string>
-    <string name="user">Taylor Swift</string>
+    <string name="user">Your Name</string>
     <string name="serve">Serving Size</string>
     <string name="numver_serve">Number of Servings</string>
     <string name="login">Login</string>
@@ -41,7 +43,6 @@
         <item>Gender</item>
         <item>Male</item>
         <item>Female</item>
-        <item>Secret</item>
     </string-array>
 
 
@@ -72,5 +73,6 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="auth_failed">The email or password is wrong.Please try again.</string>
 
 </resources>
