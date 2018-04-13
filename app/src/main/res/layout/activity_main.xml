@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context="com.example.tanxueying.healthyeats.MainActivity"
-    android:theme="@style/AppTheme">
+    android:theme="@style/AppTheme"
+    tools:context="com.example.tanxueying.healthyeats.MainActivity">
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
