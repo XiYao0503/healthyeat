@@ -139,7 +139,6 @@
         app:layout_constraintTop_toBottomOf="@+id/spinner6"
         app:layout_constraintVertical_bias="0.017" />
 
-<<<<<<< HEAD
     <TextView
         android:id="@+id/textView9"
         android:layout_width="72dp"
@@ -155,9 +154,7 @@
         app:layout_constraintBottom_toTopOf="@+id/spinner8"
         app:layout_constraintStart_toStartOf="@+id/spinner6"
         app:layout_constraintTop_toTopOf="@+id/spinner6" />
-=======
 
->>>>>>> 85c4754d0abb2aa5cf74547f27e5b30dab26c096
 
     <ImageButton
         android:id="@+id/imageButton19"
@@ -170,8 +167,6 @@
         app:layout_constraintTop_toBottomOf="@+id/imageButton17"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@android:drawable/checkbox_on_background" />
-
-<<<<<<< HEAD
 
     <TextView
         android:id="@+id/textView8"
@@ -189,14 +184,13 @@
         app:layout_constraintStart_toStartOf="@+id/spinner8"
         app:layout_constraintTop_toTopOf="@+id/spinner8" />
 
-=======
->>>>>>> 85c4754d0abb2aa5cf74547f27e5b30dab26c096
     <ImageButton
         android:id="@+id/back_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/back"

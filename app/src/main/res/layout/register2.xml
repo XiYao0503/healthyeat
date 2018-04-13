@@ -174,20 +174,20 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/weight2"
+                android:id="@+id/exercise"
                 android:layout_width="100dp"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:baselineAligned="false"
                 android:gravity="center_vertical"
-                android:text="@string/tarweight"
+                android:text="Daily Exercise"
                 android:textAlignment="inherit"
                 android:textColor="@color/colorPrimary"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/weightinput2"
+                android:id="@+id/exerciseinput"
                 android:layout_width="100dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="8dp"
@@ -196,7 +196,7 @@
                 android:baselineAligned="false"
                 android:ems="10"
                 android:gravity="center_vertical"
-                android:hint="@string/tarweight"
+                android:hint="Daily Exercise"
                 android:inputType="textPersonName"
                 android:textAlignment="inherit" />
 
@@ -208,7 +208,7 @@
                 android:layout_weight="1"
                 android:baselineAligned="false"
                 android:gravity="center_vertical"
-                android:text="@string/pounds"
+                android:text="cal"
                 android:textAlignment="inherit"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold" />

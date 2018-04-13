@@ -8,7 +8,6 @@
     tools:context="com.example.tanxueying.healthyeats.MainActivity"
     android:theme="@style/AppTheme">
 
-
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
@@ -53,7 +52,7 @@
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="237dp"
-        android:layout_height="264dp"
+        android:layout_height="400dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="68dp"

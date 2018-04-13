@@ -3,8 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@android:color/white"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     tools:context="com.example.tanxueying.healthyeats.RegisterActivity">
 
     <android.support.v7.widget.Toolbar
@@ -27,8 +27,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="82dp"
         android:ems="10"
-        android:inputType="textPersonName"
         android:hint="@string/username"
+        android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -64,26 +64,27 @@
         android:ems="10"
         android:hint="@string/confirm"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/spinner3"
+        app:layout_constraintBottom_toTopOf="@+id/birthday"
         app:layout_constraintStart_toStartOf="@+id/password"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/birthday"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
         android:ems="10"
-        android:hint="@string/birth"
+        android:hint="@string/age"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/next"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintBottom_toTopOf="@+id/spinner3"
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="@+id/confirm"
+        app:layout_constraintTop_toBottomOf="@+id/confirm" />
 
     <Button
         android:id="@+id/next"
         android:layout_width="180dp"
-        android:layout_height="39dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:background="@color/colorPrimary"
         android:text="@string/next_step"
@@ -131,9 +132,10 @@
         android:layout_marginTop="8dp"
         android:entries="@array/gender_list"
         android:prompt="@string/gender"
-        app:layout_constraintBottom_toTopOf="@+id/birthday"
+        app:layout_constraintBottom_toTopOf="@+id/imageButton2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirm" />
+        app:layout_constraintTop_toBottomOf="@+id/birthday"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

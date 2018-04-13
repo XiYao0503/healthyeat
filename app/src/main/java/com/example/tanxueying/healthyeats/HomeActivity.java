@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class HomeActivity extends AppCompatActivity {
 
     @Override
@@ -34,6 +36,7 @@ public class HomeActivity extends AppCompatActivity {
         final ImageButton button_logout = (ImageButton)findViewById(R.id.log_out2);
         button_logout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(HomeActivity.this, MainActivity.class);
                 startActivity(intent);
             }

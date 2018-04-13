@@ -1,7 +1,10 @@
 package com.example.tanxueying.healthyeats;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -9,8 +12,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-<<<<<<< HEAD
-=======
 
         final Button button_login = findViewById(R.id.btn_login);
         button_login.setOnClickListener(new View.OnClickListener() {
@@ -27,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
->>>>>>> 85c4754d0abb2aa5cf74547f27e5b30dab26c096
     }
+
 }
