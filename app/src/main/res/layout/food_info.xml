@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:textAlignment="center">
+    android:textAlignment="center"
+    tools:context="com.example.tanxueying.healthyeats.FoodInfoActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar2"
@@ -25,9 +26,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="food info"
+        android:text="@string/food_info"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@android:color/background_light"
+        android:textSize="24sp"
+        android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,7 +43,7 @@
         android:layout_gravity="end"
         android:paddingHorizontal="20dp"
         android:paddingVertical="10dp"
-        android:text="Serving Size"
+        android:text="@string/serve"
         android:textAlignment="textEnd"
         android:textColor="@color/common_google_signin_btn_text_light_focused"
         android:textSize="18sp"
@@ -53,9 +57,9 @@
         android:layout_width="208dp"
         android:layout_height="50dp"
         android:layout_gravity="end"
-        android:paddingHorizontal="20dp"
-        android:paddingVertical="10dp"
-        android:text="Number of Servings"
+
+        android:text="@string/numver_serve"
+        android:gravity="center_vertical"
         android:textAlignment="textEnd"
         android:textColor="@color/common_google_signin_btn_text_light_focused"
         android:textSize="18sp"
@@ -68,6 +72,7 @@
         android:id="@+id/spinner"
         android:layout_width="104dp"
         android:layout_height="51dp"
+        android:layout_marginRight="8dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/textView"
@@ -103,10 +108,10 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="8dp"
-        android:background="@color/grey"
+        android:background="@android:color/background_light"
         android:text="1 oz"
         android:textAlignment="center"
-        android:textColor="@color/cardview_dark_background"
+        android:textColor="@android:color/background_dark"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/spinner2"
         app:layout_constraintEnd_toEndOf="@+id/spinner"
@@ -120,7 +125,7 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="26dp"
         android:layout_marginTop="8dp"
-        android:background="@color/grey"
+        android:background="@android:color/background_light"
         android:text="1"
         android:textAlignment="center"
         android:textColor="@color/cardview_dark_background"
@@ -138,7 +143,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar2"
-        app:srcCompat="@mipmap/ic_launcher_foreground" />
+        app:srcCompat="@mipmap/chart_foreground" />
 
 
     <ImageButton

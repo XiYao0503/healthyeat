@@ -6,6 +6,11 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+<<<<<<< HEAD
+=======
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+>>>>>>> 85c4754d0abb2aa5cf74547f27e5b30dab26c096
     </style>
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
