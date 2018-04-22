@@ -1,5 +1,6 @@
 package com.example.tanxueying.healthyeats;
 
+import android.text.TextUtils;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,10 +8,14 @@ import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.app.AlertDialog;
 import android.graphics.BitmapFactory;
@@ -38,7 +43,7 @@ import com.amazonaws.services.rekognition.model.DetectLabelsResult;
 import com.amazonaws.services.rekognition.model.Image;
 import com.amazonaws.services.rekognition.model.Label;
 import com.amazonaws.services.rekognition.model.ThrottlingException;
-
+import com.google.firebase.auth.FirebaseAuth;
 
 
 import java.io.ByteArrayOutputStream;
@@ -50,19 +55,59 @@ import java.util.Calendar;
 import java.util.List;
 import android.os.StrictMode;
 
+
+
+import android.app.ProgressDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 public class UserInputActivity extends AppCompatActivity {
     private static final String IMAGE_DIRECTORY = "/demonuts";
     private int GALLERY = 1, CAMERA = 2;
+
+    private EditText input;
+    private ListView foodList;
+    private String selectedFood;
+    ProgressDialog dialog;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.userinput);
 
-        if (android.os.Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
+        input = (EditText)findViewById(R.id.text_input);
+        foodList = (ListView)findViewById(R.id.food_list);
+
+        final ImageButton button_find = (ImageButton) findViewById(R.id.find);
+        button_find.setOnClickListener(new View.OnClickListener() {
+            final String text = input.getText().toString().trim();
+
+            public void onClick(View v) {
+                if (TextUtils.isEmpty(text)) {
+                    Toast.makeText(getApplicationContext(), "Please Enter Food Name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                findFood(text);
+            }
+        });
 
         final ImageButton button_back = (ImageButton)findViewById(R.id.back_btn);
         button_back.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +125,10 @@ public class UserInputActivity extends AppCompatActivity {
             }
         });
 
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         final ImageButton camera = (ImageButton)findViewById(R.id.camera);
         camera.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -102,6 +151,7 @@ public class UserInputActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
     @Override
@@ -131,6 +181,67 @@ public class UserInputActivity extends AppCompatActivity {
         processImage(imageBytes);
     }
 
+    private void findFood(String text) {
+
+        String url = generateUrl(text);
+
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading....");
+        dialog.show();
+
+        StringRequest request = new StringRequest(url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String string) {
+                parseJsonData(string);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(getApplicationContext(), "can not parse the url!!", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        RequestQueue rQueue = Volley.newRequestQueue(UserInputActivity.this);
+        rQueue.add(request);
+
+    }
+
+    private void parseJsonData(String jsonString) {
+        try {
+            JSONObject object = new JSONObject(jsonString);
+            JSONArray foodArray = object.getJSONArray("hints");
+            final List<JSONObject> al = new ArrayList<>();
+            List<String> list = new ArrayList<>();
+            int length = 20;
+            if (foodArray.length() < 20) {
+                length = foodArray.length();
+            }
+            for(int i = 0; i < length; ++i) {
+                JSONObject cur = foodArray.getJSONObject(i);
+                al.add(cur);
+                System.out.println(cur.getJSONObject("food").get("label").toString());
+                list.add(cur.getJSONObject("food").get("label").toString());
+            }
+            ArrayAdapter adapter = new ArrayAdapter(UserInputActivity.this, android.R.layout.simple_list_item_1, list);
+            foodList.setAdapter(adapter);
+            foodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(UserInputActivity.this, FoodInfoActivity.class);
+                    // transfer the data to the next page
+
+                    intent.putExtra("foodJson", new Gson().toJson(al.get(i)));
+                    startActivity(intent);
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        dialog.dismiss();
+    }
+
     private void showPictureDialog(){
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
         pictureDialog.setTitle("Select Action");
@@ -153,6 +264,8 @@ public class UserInputActivity extends AppCompatActivity {
                 });
         pictureDialog.show();
     }
+
+
 
     public void Album() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
@@ -236,10 +349,13 @@ public class UserInputActivity extends AppCompatActivity {
                 new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                        selectedFood = resultDialogItems[which];
+                        findFood(selectedFood);
 //                        Toast.makeText(UserInputActivity.this, resultDialogItems[which] + isChecked, Toast.LENGTH_SHORT).show();
                     }
                 });
         resultDialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -262,5 +378,23 @@ public class UserInputActivity extends AppCompatActivity {
 //                    }
 //                });
 //        resultDialog.show();
+    }
+
+
+
+    private String generateUrl(String input) {
+        StringBuilder sb = new StringBuilder("https://api.edamam.com/api/food-database/parser?ingr=");
+        String[] wordList = input.trim().split(" ");
+        for (int i = 0; i < wordList.length-1; i++) {
+            sb.append(wordList[i]);
+            sb.append("%20");
+        }
+        sb.append(wordList[wordList.length-1]);
+        sb.append("&app_id={");
+        sb.append(Constant.getId());
+        sb.append("}&app_key={");
+        sb.append(Constant.getKey());
+        sb.append("}");
+        return sb.toString();
     }
 }

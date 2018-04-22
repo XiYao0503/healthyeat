@@ -12,13 +12,13 @@ public class Food {
     private String measureUrl;
     private int cal;
     private int total_cal;
-    private final static int QUANTITY = 1;
+
     public Food (String label, String labelUrl, String measure, String measureUrl, int cal) {
         this.label = label;
         this.labelUrl = labelUrl;
         this.measure = measure;
         this.measureUrl = measureUrl;
-        this.quantity = QUANTITY;
+        this.quantity = Constant.getQUANTITY();
         this.cal = cal;
         this.total_cal = cal;
     }
