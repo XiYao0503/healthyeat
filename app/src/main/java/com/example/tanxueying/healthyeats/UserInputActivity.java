@@ -43,6 +43,8 @@ import com.amazonaws.services.rekognition.model.DetectLabelsResult;
 import com.amazonaws.services.rekognition.model.Image;
 import com.amazonaws.services.rekognition.model.Label;
 import com.amazonaws.services.rekognition.model.ThrottlingException;
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.firebase.auth.FirebaseAuth;
 
 
@@ -52,6 +54,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import android.os.StrictMode;
 
@@ -76,6 +79,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Set;
+
+import com.example.tanxueying.healthyeats.R;
 
 public class UserInputActivity extends AppCompatActivity {
     private static final String IMAGE_DIRECTORY = "/demonuts";
@@ -85,7 +91,7 @@ public class UserInputActivity extends AppCompatActivity {
     private ListView foodList;
     private String selectedFood;
     ProgressDialog dialog;
-
+    private static final String TAG = UserInputActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,10 +103,10 @@ public class UserInputActivity extends AppCompatActivity {
 
         final ImageButton button_find = (ImageButton) findViewById(R.id.find);
         button_find.setOnClickListener(new View.OnClickListener() {
-            final String text = input.getText().toString().trim();
-
             public void onClick(View v) {
-                if (TextUtils.isEmpty(text)) {
+                final String text = input.getText().toString().trim();
+                Log.d(TAG, text);
+                if (TextUtils.isEmpty(input.getText().toString().trim())) {
                     Toast.makeText(getApplicationContext(), "Please Enter Food Name", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -136,21 +142,6 @@ public class UserInputActivity extends AppCompatActivity {
             }
         });
 
-        final TextView view1 = (TextView) findViewById(R.id.textView6);
-        view1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(UserInputActivity.this, FoodInfoActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        final TextView view2 = (TextView) findViewById(R.id.textView7);
-        view2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(UserInputActivity.this, FoodInfoActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
 
@@ -184,15 +175,15 @@ public class UserInputActivity extends AppCompatActivity {
     private void findFood(String text) {
 
         String url = generateUrl(text);
-
+        Log.d(TAG, url);
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading....");
         dialog.show();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,  new Response.Listener<JSONObject>() {
 
-        StringRequest request = new StringRequest(url, new Response.Listener<String>() {
             @Override
-            public void onResponse(String string) {
-                parseJsonData(string);
+            public void onResponse(JSONObject response) {
+                parseJsonData(response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -207,23 +198,25 @@ public class UserInputActivity extends AppCompatActivity {
 
     }
 
-    private void parseJsonData(String jsonString) {
+    private void parseJsonData(JSONObject object) {
         try {
-            JSONObject object = new JSONObject(jsonString);
             JSONArray foodArray = object.getJSONArray("hints");
             final List<JSONObject> al = new ArrayList<>();
             List<String> list = new ArrayList<>();
-            int length = 20;
-            if (foodArray.length() < 20) {
-                length = foodArray.length();
-            }
-            for(int i = 0; i < length; ++i) {
+
+            Set<String> set = new HashSet<>();
+            for(int i = 0; i < foodArray.length(); ++i) {
                 JSONObject cur = foodArray.getJSONObject(i);
+                String s = cur.getJSONObject("food").get("label").toString();
+                if (set.contains(s)) {
+                    continue;
+                }
                 al.add(cur);
-                System.out.println(cur.getJSONObject("food").get("label").toString());
-                list.add(cur.getJSONObject("food").get("label").toString());
+                set.add(s);
+                list.add(s);
             }
-            ArrayAdapter adapter = new ArrayAdapter(UserInputActivity.this, android.R.layout.simple_list_item_1, list);
+            System.out.print(list.size());
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
             foodList.setAdapter(adapter);
             foodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -383,18 +376,14 @@ public class UserInputActivity extends AppCompatActivity {
 
 
     private String generateUrl(String input) {
-        StringBuilder sb = new StringBuilder("https://api.edamam.com/api/food-database/parser?ingr=");
+        //https://api.edamam.com/api/food-database/parser?app_id=10804ad3&app_key=8ac0473de855b1492364d7150a0e9d64&page=0&ingr=red%20apple
+        StringBuilder sb = new StringBuilder(Constant.PARSER_URL);
         String[] wordList = input.trim().split(" ");
         for (int i = 0; i < wordList.length-1; i++) {
             sb.append(wordList[i]);
             sb.append("%20");
         }
         sb.append(wordList[wordList.length-1]);
-        sb.append("&app_id={");
-        sb.append(Constant.getId());
-        sb.append("}&app_key={");
-        sb.append(Constant.getKey());
-        sb.append("}");
         return sb.toString();
     }
 }
