@@ -223,8 +223,18 @@ public class UserInputActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                     Intent intent = new Intent(UserInputActivity.this, FoodInfoActivity.class);
                     // transfer the data to the next page
+                    try {
+                        JSONObject food = al.get(i).getJSONObject("food");
+                        JSONObject measure = al.get(i).getJSONArray("measures").getJSONObject(0);
+                        intent.putExtra("foodURI", food.get("uri").toString());
+                        intent.putExtra("foodLabel", food.get("label").toString());
+                        intent.putExtra("measureURI", measure.get("uri").toString());
+                        intent.putExtra("measureLabel", measure.get("label").toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "transfer data error!", Toast.LENGTH_SHORT).show();
+                    }
 
-                    intent.putExtra("foodJson", new Gson().toJson(al.get(i)));
                     startActivity(intent);
                 }
             });
