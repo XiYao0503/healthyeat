@@ -89,7 +89,7 @@ public class UserInputActivity extends AppCompatActivity {
 
     private EditText input;
     private ListView foodList;
-    private String selectedFood;
+//    private String selectedFood;
     ProgressDialog dialog;
     private static final String TAG = UserInputActivity.class.getSimpleName();
 
@@ -348,39 +348,39 @@ public class UserInputActivity extends AppCompatActivity {
         resultDialog.setTitle("Select Food");
 
 
-        resultDialog.setMultiChoiceItems(resultDialogItems, selected,
-                new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-                        selectedFood = resultDialogItems[which];
-                        findFood(selectedFood);
-//                        Toast.makeText(UserInputActivity.this, resultDialogItems[which] + isChecked, Toast.LENGTH_SHORT).show();
-                    }
-                });
-        resultDialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-//                Toast.makeText(UserInputActivity.this, "Done", Toast.LENGTH_SHORT).show();
-            }
-        });
-        resultDialog.create().show();
-
-
-//        resultDialog.setItems(resultDialogItems,
-//                new DialogInterface.OnClickListener() {
+//        resultDialog.setMultiChoiceItems(resultDialogItems, selected,
+//                new DialogInterface.OnMultiChoiceClickListener() {
 //                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        for (int i = 0; i < n; i++) {
-//                            if (which == i) {
-//                                // to do
-//                                break;
-//                            }
-//                        }
+//                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+//                        selectedFood = resultDialogItems[which];
+//                        findFood(selectedFood);
+////                        Toast.makeText(UserInputActivity.this, resultDialogItems[which] + isChecked, Toast.LENGTH_SHORT).show();
 //                    }
 //                });
-//        resultDialog.show();
+//        resultDialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+////                Toast.makeText(UserInputActivity.this, "Done", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        resultDialog.create().show();
+
+
+        resultDialog.setItems(resultDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        for (int i = 0; i < n; i++) {
+                            if (which == i) {
+                                findFood(resultDialogItems[which]);
+                                break;
+                            }
+                        }
+                    }
+                });
+        resultDialog.show();
     }
 
 

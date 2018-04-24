@@ -2,6 +2,8 @@ package com.example.tanxueying.healthyeats;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,8 +23,14 @@ import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.*;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -41,8 +49,8 @@ public class FoodInfoActivity extends AppCompatActivity {
         final String measureURI = getIntent().getExtras().getString("measureURI");
         final String measureLabel = getIntent().getExtras().getString("measureLabel");
 
-        Food_nutrition food_nutriton = new Food_nutrition(1, new Ingredient(foodURI, measureURI));
-        showInfomation(food_nutriton);
+
+        showInfomation(foodURI, measureURI);
 
 //        final String yield_string = getIntent().getExtras().getString("yield");
 
@@ -65,20 +73,31 @@ public class FoodInfoActivity extends AppCompatActivity {
 
 
 
-    private void showInfomation( Food_nutrition food_nutrition) {
+    private void showInfomation(String foodURI, String measureURI) {
         String url = Constant.POST_URL;
         Log.d(TAG, url);
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading....");
         dialog.show();
-        Gson gson = new Gson();
+
         JSONObject jsonObject = new JSONObject();
 
         try {
-            jsonObject = new JSONObject(gson.toJson(food_nutrition));
+            jsonObject.put("yield", 1);
+            JSONArray jsonArray = new JSONArray();
+            JSONObject jsonIngredient = new JSONObject();
+
+            jsonIngredient.put("quantity", 1);
+            jsonIngredient.put("measureURI", measureURI);
+            jsonIngredient.put("foodURI", foodURI);
+            jsonArray.put(jsonIngredient);
+
+            jsonObject.put("ingredients", jsonArray);
         } catch (JSONException e) {
-            Log.d(TAG, "convert object to json error");
+            e.printStackTrace();
         }
+        Gson gson = new Gson();
+//        System.out.println(gson.toJson(jsonObject));
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonObject,  new Response.Listener<JSONObject>() {
 
             @Override
@@ -88,6 +107,7 @@ public class FoodInfoActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
+                System.out.println("can not parse the url!!");
                 Toast.makeText(getApplicationContext(), "can not parse the url!!", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
@@ -98,53 +118,30 @@ public class FoodInfoActivity extends AppCompatActivity {
 
     }
 
+
+
+
     private void parseJsonData(JSONObject object) {
-        try {
-            float calories = (float)object.get("calories");
-            int totalWeight = object.getInt("totalWeight");
-            Enum[] dietLabels = object;
-            final List<JSONObject> al = new ArrayList<>();
-            List<String> list = new ArrayList<>();
 
-            Set<String> set = new HashSet<>();
-            for(int i = 0; i < foodArray.length(); ++i) {
-                JSONObject cur = foodArray.getJSONObject(i);
-                String s = cur.getJSONObject("food").get("label").toString();
-                if (set.contains(s)) {
-                    continue;
-                }
-                al.add(cur);
-                set.add(s);
-                list.add(s);
-            }
-            System.out.print(list.size());
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
-            foodList.setAdapter(adapter);
-            foodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent intent = new Intent(UserInputActivity.this, FoodInfoActivity.class);
-                    // transfer the data to the next page
-                    try {
-                        JSONObject food = al.get(i).getJSONObject("food");
-                        JSONObject measure = al.get(i).getJSONArray("measures").getJSONObject(0);
-                        intent.putExtra("foodURI", food.get("uri").toString());
-                        intent.putExtra("foodLabel", food.get("label").toString());
-                        intent.putExtra("measureURI", measure.get("uri").toString());
-                        intent.putExtra("measureLabel", measure.get("label").toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), "transfer data error!", Toast.LENGTH_SHORT).show();
-                    }
-
-                    startActivity(intent);
-                }
-            });
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
         dialog.dismiss();
+    }
+
+    public static String readFile(String filename) {
+        String result = "";
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(filename));
+            StringBuilder sb = new StringBuilder();
+            String line = br.readLine();
+            while (line != null) {
+                sb.append(line);
+                line = br.readLine();
+            }
+            result = sb.toString();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 

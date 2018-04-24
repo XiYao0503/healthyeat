@@ -13,6 +13,9 @@ public class Food_nutrition {
         this.yield = yield;
         ingredients = new Ingredient[]{ingredient};
     }
+    public int getYield() {
+        return yield;
+    }
 
 
 }
