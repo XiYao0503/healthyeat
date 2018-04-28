@@ -1,5 +1,8 @@
 package com.example.tanxueying.healthyeats;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
 
     private String username;
@@ -9,8 +12,8 @@ public class User {
     private String weight;
     private String exercise;
     private String goal_cal;
-    private String food_cal;
-
+    private List<Food> foodList;
+    private String net;
     public User() {
 
     }
@@ -22,6 +25,7 @@ public class User {
         this.height = height;
         this.weight = weight;
         this.exercise = exercise;
+        this.foodList =  new ArrayList<>();
     }
 
     public String getUsername() {
@@ -76,14 +80,6 @@ public class User {
         return goal_cal;
     }
 
-    public void setFood_cal(String food_cal) {
-        this.food_cal = food_cal;
-    }
-
-    public String getFood_cal() {
-        return food_cal;
-    }
-
 
     public void setCal() {
         Double h = Double.parseDouble(this.height) * 2.54;
@@ -96,6 +92,13 @@ public class User {
         } else {
             c = 665.09 + (9.56 * w) + (1.84 * h) - (4.67 * a) + e;
         }
-        this.goal_cal = c.intValue() + "";
+        this.goal_cal = String.valueOf(c.intValue());
+        this.net = goal_cal;
+    }
+    public void addFood(Food food) {
+        // update food list
+        // update net
+        foodList.add(food);
+        net = String.valueOf(Integer.parseInt(net)-food.getTotal_cal());
     }
 }

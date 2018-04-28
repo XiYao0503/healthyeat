@@ -1,5 +1,6 @@
 package com.example.tanxueying.healthyeats;
 
+import android.text.TextUtils;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -7,10 +8,14 @@ import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.app.AlertDialog;
 import android.graphics.BitmapFactory;
@@ -38,7 +43,9 @@ import com.amazonaws.services.rekognition.model.DetectLabelsResult;
 import com.amazonaws.services.rekognition.model.Image;
 import com.amazonaws.services.rekognition.model.Label;
 import com.amazonaws.services.rekognition.model.ThrottlingException;
-
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 import java.io.ByteArrayOutputStream;
@@ -47,22 +54,66 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
 import android.os.StrictMode;
+
+
+
+import android.app.ProgressDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Set;
+
+import com.example.tanxueying.healthyeats.R;
 
 public class UserInputActivity extends AppCompatActivity {
     private static final String IMAGE_DIRECTORY = "/demonuts";
     private int GALLERY = 1, CAMERA = 2;
+
+    private EditText input;
+    private ListView foodList;
+//    private String selectedFood;
+    ProgressDialog dialog;
+    private static final String TAG = UserInputActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.userinput);
 
-        if (android.os.Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
+        input = (EditText)findViewById(R.id.text_input);
+        foodList = (ListView)findViewById(R.id.food_list);
+
+        final ImageButton button_find = (ImageButton) findViewById(R.id.find);
+        button_find.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                final String text = input.getText().toString().trim();
+                Log.d(TAG, text);
+                if (TextUtils.isEmpty(input.getText().toString().trim())) {
+                    Toast.makeText(getApplicationContext(), "Please Enter Food Name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                findFood(text);
+            }
+        });
 
         final ImageButton button_back = (ImageButton)findViewById(R.id.back_btn);
         button_back.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +131,10 @@ public class UserInputActivity extends AppCompatActivity {
             }
         });
 
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         final ImageButton camera = (ImageButton)findViewById(R.id.camera);
         camera.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -87,21 +142,7 @@ public class UserInputActivity extends AppCompatActivity {
             }
         });
 
-        final TextView view1 = (TextView) findViewById(R.id.textView6);
-        view1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(UserInputActivity.this, FoodInfoActivity.class);
-                startActivity(intent);
-            }
-        });
 
-        final TextView view2 = (TextView) findViewById(R.id.textView7);
-        view2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(UserInputActivity.this, FoodInfoActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override
@@ -131,6 +172,79 @@ public class UserInputActivity extends AppCompatActivity {
         processImage(imageBytes);
     }
 
+    private void findFood(String text) {
+
+        String url = generateUrl(text);
+        Log.d(TAG, url);
+        dialog = new ProgressDialog(this);
+        dialog.setMessage("Loading....");
+        dialog.show();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,  new Response.Listener<JSONObject>() {
+
+            @Override
+            public void onResponse(JSONObject response) {
+                parseJsonData(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(getApplicationContext(), "can not parse the url!!", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        RequestQueue rQueue = Volley.newRequestQueue(UserInputActivity.this);
+        rQueue.add(request);
+
+    }
+
+    private void parseJsonData(JSONObject object) {
+        try {
+            JSONArray foodArray = object.getJSONArray("hints");
+            final List<JSONObject> al = new ArrayList<>();
+            List<String> list = new ArrayList<>();
+
+            Set<String> set = new HashSet<>();
+            for(int i = 0; i < foodArray.length(); ++i) {
+                JSONObject cur = foodArray.getJSONObject(i);
+                String s = cur.getJSONObject("food").get("label").toString();
+                if (set.contains(s)) {
+                    continue;
+                }
+                al.add(cur);
+                set.add(s);
+                list.add(s);
+            }
+            System.out.print(list.size());
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+            foodList.setAdapter(adapter);
+            foodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                    Intent intent = new Intent(UserInputActivity.this, FoodInfoActivity.class);
+                    // transfer the data to the next page
+                    try {
+                        JSONObject food = al.get(i).getJSONObject("food");
+                        JSONObject measure = al.get(i).getJSONArray("measures").getJSONObject(0);
+                        intent.putExtra("foodURI", food.get("uri").toString());
+                        intent.putExtra("foodLabel", food.get("label").toString());
+                        intent.putExtra("measureURI", measure.get("uri").toString());
+                        intent.putExtra("measureLabel", measure.get("label").toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(), "transfer data error!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    startActivity(intent);
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        dialog.dismiss();
+    }
+
     private void showPictureDialog(){
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
         pictureDialog.setTitle("Select Action");
@@ -153,6 +267,8 @@ public class UserInputActivity extends AppCompatActivity {
                 });
         pictureDialog.show();
     }
+
+
 
     public void Album() {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
@@ -232,35 +348,52 @@ public class UserInputActivity extends AppCompatActivity {
         resultDialog.setTitle("Select Food");
 
 
-        resultDialog.setMultiChoiceItems(resultDialogItems, selected,
-                new DialogInterface.OnMultiChoiceClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-//                        Toast.makeText(UserInputActivity.this, resultDialogItems[which] + isChecked, Toast.LENGTH_SHORT).show();
-                    }
-                });
-        resultDialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-//                Toast.makeText(UserInputActivity.this, "Done", Toast.LENGTH_SHORT).show();
-            }
-        });
-        resultDialog.create().show();
-
-
-//        resultDialog.setItems(resultDialogItems,
-//                new DialogInterface.OnClickListener() {
+//        resultDialog.setMultiChoiceItems(resultDialogItems, selected,
+//                new DialogInterface.OnMultiChoiceClickListener() {
 //                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        for (int i = 0; i < n; i++) {
-//                            if (which == i) {
-//                                // to do
-//                                break;
-//                            }
-//                        }
+//                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+//                        selectedFood = resultDialogItems[which];
+//                        findFood(selectedFood);
+////                        Toast.makeText(UserInputActivity.this, resultDialogItems[which] + isChecked, Toast.LENGTH_SHORT).show();
 //                    }
 //                });
-//        resultDialog.show();
+//        resultDialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+////                Toast.makeText(UserInputActivity.this, "Done", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        resultDialog.create().show();
+
+
+        resultDialog.setItems(resultDialogItems,
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        for (int i = 0; i < n; i++) {
+                            if (which == i) {
+                                findFood(resultDialogItems[which]);
+                                break;
+                            }
+                        }
+                    }
+                });
+        resultDialog.show();
+    }
+
+
+
+    private String generateUrl(String input) {
+        //https://api.edamam.com/api/food-database/parser?app_id=10804ad3&app_key=8ac0473de855b1492364d7150a0e9d64&page=0&ingr=red%20apple
+        StringBuilder sb = new StringBuilder(Constant.PARSER_URL);
+        String[] wordList = input.trim().split(" ");
+        for (int i = 0; i < wordList.length-1; i++) {
+            sb.append(wordList[i]);
+            sb.append("%20");
+        }
+        sb.append(wordList[wordList.length-1]);
+        return sb.toString();
     }
 }
