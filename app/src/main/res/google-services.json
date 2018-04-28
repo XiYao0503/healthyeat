@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "589260274828",
+    "firebase_url": "https://healthyeats-efb4c.firebaseio.com",
+    "project_id": "healthyeats-efb4c",
+    "storage_bucket": "healthyeats-efb4c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:589260274828:android:03f24f604d71e1a8",
+        "android_client_info": {
+          "package_name": "com.example.tanxueying.healthyeats"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "589260274828-mul0bdvo22mjdb3fj1vibm4e56mhr9j6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBGDLYW-uMUuMKRaDiU6MjR5guMaHrPMTw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
