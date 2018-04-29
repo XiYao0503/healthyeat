@@ -30,12 +30,7 @@
 
     <string name = "calory_num"> 1677  -  894  =   1018 </string>
     <string name="goal">Goal  -  total food  =  Net</string>
-    <string-array name="food_array">
-        <item>Rice</item>
-        <item>Milk</item>
-        <item>Apple</item>
-        <item>Orange</item>
-    </string-array>
+
 
     <string name="gender">gender</string>
 

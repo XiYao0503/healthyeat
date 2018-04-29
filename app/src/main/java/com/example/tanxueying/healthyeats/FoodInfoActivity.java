@@ -11,7 +11,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Toast;
+
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -19,6 +21,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -33,6 +40,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -74,6 +82,7 @@ public class FoodInfoActivity extends AppCompatActivity {
 
 
     private void showInfomation(String foodURI, String measureURI) {
+//        foodURI = "http://www.edamam.com/ontologies/edamam.owl#Food_11529";
         String url = Constant.POST_URL;
         Log.d(TAG, url);
         dialog = new ProgressDialog(this);
@@ -115,16 +124,80 @@ public class FoodInfoActivity extends AppCompatActivity {
 
         RequestQueue rQueue = Volley.newRequestQueue(FoodInfoActivity.this);
         rQueue.add(request);
-
     }
 
-
-
-
     private void parseJsonData(JSONObject object) {
+        try {
+            // for listView
+            List<JSONObject> ingredientsList = new ArrayList<>();
+            JSONObject ingredientObjects = object.getJSONObject("totalNutrients");
+            Iterator<String> keys = ingredientObjects.keys();
+            while (keys.hasNext()) {
+                String key = keys.next();
+                JSONObject value = ingredientObjects.getJSONObject(key);
+                ingredientsList.add(value);
+            }
 
+            String[] ingredients = new String[ingredientsList.size()];
+            for(int i = 0; i < ingredientsList.size(); ++i) {
+                JSONObject cur = ingredientsList.get(i);
+                ingredients[i] = cur.get("label").toString() + ": " + cur.get("quantity").toString() + " " + cur.get("unit").toString();
+//                Log.d("bbbbbbbbb", cur.get("label").toString());
 
+                ListView ingredientList = (ListView)findViewById(R.id.ingredient);
+                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_listview, R.id.textView, ingredients);
+                ingredientList.setAdapter(arrayAdapter);
+            }
+
+            // for pieChart
+            List<JSONObject> chartList = new ArrayList<>();
+            JSONObject chartObjects = object.getJSONObject("totalDaily");
+            Iterator<String> chartKeys = chartObjects.keys();
+            while (chartKeys.hasNext()) {
+                String key = chartKeys.next();
+                JSONObject value = chartObjects.getJSONObject(key);
+                chartList.add(value);
+            }
+
+            List<String> xValues = new ArrayList<>();
+            List<Float> yValues = new ArrayList<>();
+            float sum = 0;
+            for(int i = 0; i < chartList.size(); ++i) {
+                JSONObject cur = chartList.get(i);
+                float percentage = ((Double) cur.get("quantity")).floatValue() / 3.69f;
+                if (percentage > 4.0f) {
+                    sum += percentage;
+//                    Log.d("aaaaaaaaa", cur.get("label").toString() + percentage);
+                    xValues.add(cur.get("label").toString());
+                    yValues.add(percentage);
+                }
+            }
+            xValues.add("Other");
+            yValues.add(100.0f - sum);
+            pieChart(xValues, yValues);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         dialog.dismiss();
+    }
+
+    public void pieChart(List<String> xValues, List<Float> yValues) {
+        String[] labels = xValues.toArray(new String[xValues.size()]);
+        Float[] quantities = yValues.toArray(new Float[yValues.size()]);
+
+        List<PieEntry> pieEntries = new ArrayList<>();
+        for (int i = 0; i < quantities.length; i++) {
+            pieEntries.add(new PieEntry(quantities[i], labels[i]));
+        }
+
+        PieDataSet dataSet = new PieDataSet(pieEntries, "Ingredient Percentage");
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
+        PieData data = new PieData(dataSet);
+
+        PieChart pieChart = (PieChart) findViewById(R.id.piechart);
+        pieChart.setData(data);
+        pieChart.invalidate();
+
     }
 
     public static String readFile(String filename) {
@@ -143,7 +216,4 @@ public class FoodInfoActivity extends AppCompatActivity {
         }
         return result;
     }
-
-
-
 }
