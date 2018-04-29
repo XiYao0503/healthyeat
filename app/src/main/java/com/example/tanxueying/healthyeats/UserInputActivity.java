@@ -110,8 +110,9 @@ public class UserInputActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Please Enter Food Name", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-                findFood(text);
+                List<String> list = new ArrayList<>();
+                list.add(text);
+                findFood(list);
             }
         });
 
@@ -172,37 +173,37 @@ public class UserInputActivity extends AppCompatActivity {
         processImage(imageBytes);
     }
 
-    private void findFood(String text) {
-
-        String url = generateUrl(text);
-        Log.d(TAG, url);
+    private void findFood(List<String> text_list) {
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading....");
         dialog.show();
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,  new Response.Listener<JSONObject>() {
+        for (String text: text_list) {
+            String url = generateUrl(text);
+            Log.d(TAG, url);
+            final List<JSONObject> al = new ArrayList<>();
+            final List<String> list = new ArrayList<>();
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,  new Response.Listener<JSONObject>() {
 
-            @Override
-            public void onResponse(JSONObject response) {
-                parseJsonData(response);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                Toast.makeText(getApplicationContext(), "can not parse the url!!", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-            }
-        });
-
-        RequestQueue rQueue = Volley.newRequestQueue(UserInputActivity.this);
-        rQueue.add(request);
+                @Override
+                public void onResponse(JSONObject response) {
+                    parseJsonData(response, al, list);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError volleyError) {
+                    Toast.makeText(getApplicationContext(), "can not parse the url!!", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                }
+            });
+            RequestQueue rQueue = Volley.newRequestQueue(UserInputActivity.this);
+            rQueue.add(request);
+        }
 
     }
 
-    private void parseJsonData(JSONObject object) {
+    private void parseJsonData(JSONObject object, final List<JSONObject> al, List<String> list) {
         try {
             JSONArray foodArray = object.getJSONArray("hints");
-            final List<JSONObject> al = new ArrayList<>();
-            List<String> list = new ArrayList<>();
 
             Set<String> set = new HashSet<>();
             for(int i = 0; i < foodArray.length(); ++i) {
@@ -282,34 +283,34 @@ public class UserInputActivity extends AppCompatActivity {
         startActivityForResult(intent, CAMERA);
     }
 
-    public String saveImage(Bitmap myBitmap) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File wallpaperDirectory = new File(
-                Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
-        // have the object build the directory structure, if needed.
-        if (!wallpaperDirectory.exists()) {
-            wallpaperDirectory.mkdirs();
-        }
-
-        try {
-            File f = new File(wallpaperDirectory, Calendar.getInstance()
-                    .getTimeInMillis() + ".jpg");
-            f.createNewFile();
-            FileOutputStream fo = new FileOutputStream(f);
-            fo.write(bytes.toByteArray());
-            MediaScannerConnection.scanFile(this,
-                    new String[]{f.getPath()},
-                    new String[]{"image/jpeg"}, null);
-            fo.close();
-            Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
-
-            return f.getAbsolutePath();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        return "";
-    }
+//    public String saveImage(Bitmap myBitmap) {
+//        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+//        File wallpaperDirectory = new File(
+//                Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
+//        // have the object build the directory structure, if needed.
+//        if (!wallpaperDirectory.exists()) {
+//            wallpaperDirectory.mkdirs();
+//        }
+//
+//        try {
+//            File f = new File(wallpaperDirectory, Calendar.getInstance()
+//                    .getTimeInMillis() + ".jpg");
+//            f.createNewFile();
+//            FileOutputStream fo = new FileOutputStream(f);
+//            fo.write(bytes.toByteArray());
+//            MediaScannerConnection.scanFile(this,
+//                    new String[]{f.getPath()},
+//                    new String[]{"image/jpeg"}, null);
+//            fo.close();
+//            Log.d("TAG", "File Saved::--->" + f.getAbsolutePath());
+//
+//            return f.getAbsolutePath();
+//        } catch (IOException e1) {
+//            e1.printStackTrace();
+//        }
+//        return "";
+//    }
 
     private void processImage(ByteBuffer imageBytes) {
         CognitoCachingCredentialsProvider credentialsProvider = new CognitoCachingCredentialsProvider(
@@ -348,38 +349,46 @@ public class UserInputActivity extends AppCompatActivity {
         resultDialog.setTitle("Select Food");
 
 
-//        resultDialog.setMultiChoiceItems(resultDialogItems, selected,
-//                new DialogInterface.OnMultiChoiceClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-//                        selectedFood = resultDialogItems[which];
-//                        findFood(selectedFood);
-////                        Toast.makeText(UserInputActivity.this, resultDialogItems[which] + isChecked, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//        resultDialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-//
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-////                Toast.makeText(UserInputActivity.this, "Done", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        resultDialog.create().show();
-
-
-        resultDialog.setItems(resultDialogItems,
-                new DialogInterface.OnClickListener() {
+        resultDialog.setMultiChoiceItems(resultDialogItems, selected,
+                new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        for (int i = 0; i < n; i++) {
-                            if (which == i) {
-                                findFood(resultDialogItems[which]);
-                                break;
-                            }
-                        }
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+                          if (isChecked) {
+                              selected[which] = true;
+                          } else {
+                              selected[which] = false;
+                          }
+//                        Toast.makeText(UserInputActivity.this, resultDialogItems[which] + isChecked, Toast.LENGTH_SHORT).show();
                     }
                 });
+        resultDialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                List<String> text_list = new ArrayList<>();
+                for (int i = 0; i < selected.length; i++) {
+                    if( selected[i]) text_list.add(resultDialogItems[i]);
+                }
+                findFood(text_list);
+//                Toast.makeText(UserInputActivity.this, "Done", Toast.LENGTH_SHORT).show();
+            }
+        });
+        resultDialog.create().show();
+
+
+//        resultDialog.setItems(resultDialogItems,
+//                new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        for (int i = 0; i < n; i++) {
+//                            if (which == i) {
+//                                findFood(resultDialogItems[which]);
+//                                break;
+//                            }
+//                        }
+//                    }
+//                });
         resultDialog.show();
     }
 
