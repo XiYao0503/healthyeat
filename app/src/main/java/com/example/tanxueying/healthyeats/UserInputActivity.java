@@ -1,5 +1,6 @@
 package com.example.tanxueying.healthyeats;
 
+import android.app.Dialog;
 import android.text.TextUtils;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -90,7 +91,11 @@ public class UserInputActivity extends AppCompatActivity {
     private EditText input;
     private ListView foodList;
 //    private String selectedFood;
+    final List<JSONObject> al = new ArrayList<>();
+
+    List<String> list = new ArrayList<>();
     ProgressDialog dialog;
+
     private static final String TAG = UserInputActivity.class.getSimpleName();
 
     @Override
@@ -111,7 +116,13 @@ public class UserInputActivity extends AppCompatActivity {
                     return;
                 }
 
+                dialog = new ProgressDialog(UserInputActivity.this);
+                dialog.setMessage("Loading....");
+                dialog.show();
+
                 findFood(text);
+                transmitData();
+                dialog.dismiss();
             }
         });
 
@@ -176,9 +187,7 @@ public class UserInputActivity extends AppCompatActivity {
 
         String url = generateUrl(text);
         Log.d(TAG, url);
-        dialog = new ProgressDialog(this);
-        dialog.setMessage("Loading....");
-        dialog.show();
+
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,  new Response.Listener<JSONObject>() {
 
             @Override
@@ -201,9 +210,6 @@ public class UserInputActivity extends AppCompatActivity {
     private void parseJsonData(JSONObject object) {
         try {
             JSONArray foodArray = object.getJSONArray("hints");
-            final List<JSONObject> al = new ArrayList<>();
-            List<String> list = new ArrayList<>();
-
             Set<String> set = new HashSet<>();
             for(int i = 0; i < foodArray.length(); ++i) {
                 JSONObject cur = foodArray.getJSONObject(i);
@@ -215,34 +221,11 @@ public class UserInputActivity extends AppCompatActivity {
                 set.add(s);
                 list.add(s);
             }
-            System.out.print(list.size());
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
-            foodList.setAdapter(adapter);
-            foodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent intent = new Intent(UserInputActivity.this, FoodInfoActivity.class);
-                    // transfer the data to the next page
-                    try {
-                        JSONObject food = al.get(i).getJSONObject("food");
-                        JSONObject measure = al.get(i).getJSONArray("measures").getJSONObject(0);
-                        intent.putExtra("foodURI", food.get("uri").toString());
-                        intent.putExtra("foodLabel", food.get("label").toString());
-                        intent.putExtra("measureURI", measure.get("uri").toString());
-                        intent.putExtra("measureLabel", measure.get("label").toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), "transfer data error!", Toast.LENGTH_SHORT).show();
-                    }
-
-                    startActivity(intent);
-                }
-            });
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        dialog.dismiss();
+
     }
 
     private void showPictureDialog(){
@@ -348,39 +331,50 @@ public class UserInputActivity extends AppCompatActivity {
         resultDialog.setTitle("Select Food");
 
 
-//        resultDialog.setMultiChoiceItems(resultDialogItems, selected,
-//                new DialogInterface.OnMultiChoiceClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
-//                        selectedFood = resultDialogItems[which];
-//                        findFood(selectedFood);
-////                        Toast.makeText(UserInputActivity.this, resultDialogItems[which] + isChecked, Toast.LENGTH_SHORT).show();
-//                    }
-//                });
-//        resultDialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {
-//
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-////                Toast.makeText(UserInputActivity.this, "Done", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        resultDialog.create().show();
-
-
-        resultDialog.setItems(resultDialogItems,
-                new DialogInterface.OnClickListener() {
+        resultDialog.setMultiChoiceItems(resultDialogItems, selected,
+                new DialogInterface.OnMultiChoiceClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        for (int i = 0; i < n; i++) {
-                            if (which == i) {
-                                findFood(resultDialogItems[which]);
-                                break;
+                    public void onClick(DialogInterface dialog, int which, boolean isChecked) {
+
+                        for (int i = 0; i < resultDialogItems.length; i++) {
+                            if(i == which && isChecked) {
+                                selected[i] = true;
                             }
                         }
+//                        Toast.makeText(UserInputActivity.this, resultDialogItems[which] + isChecked, Toast.LENGTH_SHORT).show();
                     }
                 });
-        resultDialog.show();
+        resultDialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+
+                    for (int i = 0; i < selected.length; i++) {
+                        if (selected[i]) {
+                            findFood(resultDialogItems[i]);
+                        }
+                    }
+                transmitData();
+//                Toast.makeText(UserInputActivity.this, "Done", Toast.LENGTH_SHORT).show();
+            }
+        });
+        resultDialog.create().show();
+
+
+//        resultDialog.setItems(resultDialogItems,
+//                new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        for (int i = 0; i < n; i++) {
+//                            if (which == i) {
+//                                findFood(resultDialogItems[which]);
+//                                break;
+//                            }
+//                        }
+//                    }
+//                });
+//        resultDialog.show();
     }
 
 
@@ -395,5 +389,30 @@ public class UserInputActivity extends AppCompatActivity {
         }
         sb.append(wordList[wordList.length-1]);
         return sb.toString();
+    }
+
+    private void transmitData() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+        foodList.setAdapter(adapter);
+        foodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(UserInputActivity.this, FoodInfoActivity.class);
+                // transfer the data to the next page
+                try {
+                    JSONObject food = al.get(i).getJSONObject("food");
+                    JSONObject measure = al.get(i).getJSONArray("measures").getJSONObject(0);
+                    intent.putExtra("foodURI", food.get("uri").toString());
+                    intent.putExtra("foodLabel", food.get("label").toString());
+                    intent.putExtra("measureURI", measure.get("uri").toString());
+                    intent.putExtra("measureLabel", measure.get("label").toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "transfer data error!", Toast.LENGTH_SHORT).show();
+                }
+
+                startActivity(intent);
+            }
+        });
     }
 }

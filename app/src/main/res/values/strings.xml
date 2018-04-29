@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Healthy Eats</string>
+    <string name="yield">yield </string>
+    <string name="quantity">quantity </string>
     <string name="profile_name">Profile</string>
     <string name="register_name">Register</string>
     <string name="food_info">Food Info</string>
