@@ -6,19 +6,20 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:textAlignment="center"
+    android:theme="@style/AppTheme"
     tools:context="com.example.tanxueying.healthyeats.FoodInfoActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar2"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="57dp"
         android:background="@color/colorPrimary"
-        android:minHeight="?attr/actionBarSize"
+
         android:theme="@style/AppTheme"
-        app:layout_constraintBottom_toTopOf="@+id/piechart"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/title"

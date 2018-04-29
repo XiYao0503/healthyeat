@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="50dp"
     android:orientation="horizontal">
 
     <TextView
@@ -10,20 +10,20 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
+        android:paddingEnd="@dimen/dp30"
         android:paddingLeft="@dimen/dp30"
         android:paddingStart="@dimen/dp30"
-        android:paddingEnd="@dimen/dp30"
-        android:textColor="@color/black"
         android:text="@string/user"
+        android:textColor="@color/black"
         android:textSize="24sp" />
 
 
-<Button
-    android:id="@+id/iv_del"
-    android:layout_width="@dimen/dp30"
-    android:layout_height="@dimen/dp30"
-    android:layout_gravity="center"
-    android:layout_marginLeft="@dimen/dp10"
-    android:layout_marginRight="@dimen/dp10"
-    android:background="@android:drawable/ic_delete" />
+    <ImageView
+        android:id="@+id/iv_del"
+        android:layout_width="@dimen/dp30"
+        android:layout_height="@dimen/dp30"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/dp10"
+        android:layout_marginRight="@dimen/dp10"
+        android:background="@android:drawable/ic_delete" />
 </LinearLayout>

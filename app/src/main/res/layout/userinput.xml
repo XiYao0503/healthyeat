@@ -11,7 +11,7 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar2"
-        android:layout_width="384dp"
+        android:layout_width="450dp"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:minHeight="?android:attr/actionBarSize"
@@ -23,7 +23,7 @@
         android:layout_height="35dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="14dp"
+
         android:text="@string/app_name"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -33,7 +33,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/text_input"
-        app:layout_constraintEnd_toStartOf="@+id/done"
         app:layout_constraintStart_toEndOf="@+id/back_btn" />
 
     <EditText
@@ -87,17 +86,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/bakk" />
-
-    <ImageButton
-        android:id="@+id/done"
-        android:layout_width="40dp"
-        android:layout_height="57dp"
-        android:background="@color/colorPrimary"
-        android:contentDescription="@string/done"
-        app:layout_constraintBottom_toTopOf="@+id/text_input"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2"
-        app:srcCompat="@drawable/ic_action_name" />
 
 
     <ListView

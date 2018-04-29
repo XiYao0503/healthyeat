@@ -95,7 +95,7 @@ public class Register2Activity extends AppCompatActivity {
 
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(Register2Activity.this, "Authentication failed." + task.getException(),
-                                            Toast.LENGTH_LONG).show();
+                                            Toast.LENGTH_SHORT).show();
                                 } else {
 
                                     //get the UID as the key of user table
