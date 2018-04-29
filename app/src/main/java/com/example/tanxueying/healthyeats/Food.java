@@ -37,5 +37,9 @@ public class Food {
     public int getTotal_cal(){
         return total_cal;
     }
+
+    public String getLabel() {
+        return this.label;
+    }
 }
 

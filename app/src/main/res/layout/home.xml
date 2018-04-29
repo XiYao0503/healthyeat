@@ -145,290 +145,71 @@
         app:layout_constraintStart_toStartOf="@+id/data_view"
         app:layout_constraintTop_toTopOf="@+id/data_view"
         app:layout_constraintVertical_bias="0.508" />
-    <ScrollView
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></RelativeLayout>
+
+    <ListView
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
-        android:layout_height="189dp"
+        android:layout_height="280dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="6dp"
         android:background="@android:color/white"
         android:scrollbarStyle="outsideOverlay"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <!--<LinearLayout-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
 
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+            <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:id="@+id/scrollView2">-->
 
-                <TextView
-                    android:id="@+id/editText3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="30dp"
-                    android:text="Rice"
-                    android:textSize="24sp" />
+            <!--</RelativeLayout>-->
 
-                <Button
-                    android:id="@+id/clr1"
-                    android:layout_width="30dip"
-                    android:layout_height="30dip"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="19dp"
-                    android:layout_marginRight="19dp"
-                    android:background="@android:drawable/ic_delete" />
-            </RelativeLayout>
+            <!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content">-->
 
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
+                <!--<TextView-->
+                    <!--android:id="@+id/egg"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:ems="10"-->
+                    <!--android:inputType="textPersonName"-->
+                    <!--android:paddingLeft="30dp"-->
+                    <!--android:text="egg"-->
+                    <!--android:textSize="24sp" />-->
 
-                <TextView
-                    android:id="@+id/editText4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="30dp"
-                    android:text="Banana"
-                    android:textSize="24sp" />
+                <!--<Button-->
+                    <!--android:id="@+id/c4"-->
+                    <!--android:layout_width="30dip"-->
+                    <!--android:layout_height="30dip"-->
+                    <!--android:layout_alignParentEnd="true"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginEnd="19dp"-->
+                    <!--android:layout_marginRight="19dp"-->
+                    <!--android:background="@android:drawable/ic_delete" />-->
+            <!--</RelativeLayout>-->
+        <!--</LinearLayout>-->
 
-                <Button
-                    android:id="@+id/clr2"
-                    android:layout_width="30dip"
-                    android:layout_height="30dip"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="19dp"
-                    android:layout_marginRight="19dp"
-                    android:background="@android:drawable/ic_delete" />
-            </RelativeLayout>
-
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/editText5"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="30dp"
-                    android:text="Milk"
-                    android:textSize="24sp" />
-
-                <Button
-                    android:id="@+id/cl3"
-                    android:layout_width="30dip"
-                    android:layout_height="30dip"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="19dp"
-                    android:layout_marginRight="19dp"
-                    android:background="@android:drawable/ic_delete" />
-            </RelativeLayout>
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/editText6"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="30dp"
-                    android:text="Chicken"
-                    android:textSize="24sp" />
-
-                <Button
-                    android:id="@+id/cl4"
-                    android:layout_width="30dip"
-                    android:layout_height="30dip"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="19dp"
-                    android:layout_marginRight="19dp"
-                    android:background="@android:drawable/ic_delete" />
-            </RelativeLayout>
-
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/editText7"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="30dp"
-                    android:text="Orange"
-                    android:textSize="24sp" />
-
-                <Button
-                    android:id="@+id/cl5"
-                    android:layout_width="30dip"
-                    android:layout_height="30dip"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="19dp"
-                    android:layout_marginRight="19dp"
-                    android:background="@android:drawable/ic_delete" />
-            </RelativeLayout>
-
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/editText8"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="30dp"
-                    android:text="Dumpling"
-                    android:textSize="24sp" />
-
-                <Button
-                    android:id="@+id/cl6"
-                    android:layout_width="30dip"
-                    android:layout_height="30dip"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="19dp"
-                    android:layout_marginRight="19dp"
-                    android:background="@android:drawable/ic_delete" />
-            </RelativeLayout>
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/coffee"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="30dp"
-                    android:text="coffee"
-                    android:textSize="24sp" />
-
-                <Button
-                    android:id="@+id/c1"
-                    android:layout_width="30dip"
-                    android:layout_height="30dip"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="19dp"
-                    android:layout_marginRight="19dp"
-                    android:background="@android:drawable/ic_delete" />
-            </RelativeLayout>
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/juice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="30dp"
-                    android:text="juice"
-                    android:textSize="24sp" />
-
-                <Button
-                    android:id="@+id/c2"
-                    android:layout_width="30dip"
-                    android:layout_height="30dip"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="19dp"
-                    android:layout_marginRight="19dp"
-                    android:background="@android:drawable/ic_delete" />
-            </RelativeLayout>
-
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/wine"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="30dp"
-                    android:text="wine"
-                    android:textSize="24sp" />
-
-                <Button
-                    android:id="@+id/c3"
-                    android:layout_width="30dip"
-                    android:layout_height="30dip"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="19dp"
-                    android:layout_marginRight="19dp"
-                    android:background="@android:drawable/ic_delete" />
-            </RelativeLayout>
-
-            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/egg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:paddingLeft="30dp"
-                    android:text="egg"
-                    android:textSize="24sp" />
-
-                <Button
-                    android:id="@+id/c4"
-                    android:layout_width="30dip"
-                    android:layout_height="30dip"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="19dp"
-                    android:layout_marginRight="19dp"
-                    android:background="@android:drawable/ic_delete" />
-            </RelativeLayout>
-        </LinearLayout>
-
-    </ScrollView>
+    <!--</ScrollView>-->
 
     <TextView
         android:id="@+id/textView3"

@@ -91,13 +91,12 @@ public class Register2Activity extends AppCompatActivity {
                                 // If sign in fails, display a message to the user. If sign in succeeds
                                 // the auth state listener will be notified and logic to handle the
                                 // signed in user can be handled in the listener.
-//                                Toast.makeText(Register2Activity.this, "Line72", Toast.LENGTH_SHORT).show();
+//
 
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(Register2Activity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_LONG).show();
                                 } else {
-//                                    Toast.makeText(Register2Activity.this, "Line78", Toast.LENGTH_SHORT).show();
 
                                     //get the UID as the key of user table
                                     FirebaseUser user = task.getResult().getUser();

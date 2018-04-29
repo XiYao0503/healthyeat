@@ -13,7 +13,8 @@ public class User {
     private String exercise;
     private String goal_cal;
     private List<Food> foodList;
-    private String net;
+    private String net_cal;
+    private String total_cal;
     public User() {
 
     }
@@ -93,12 +94,37 @@ public class User {
             c = 665.09 + (9.56 * w) + (1.84 * h) - (4.67 * a) + e;
         }
         this.goal_cal = String.valueOf(c.intValue());
-        this.net = goal_cal;
+        this.net_cal = goal_cal;
+        this.total_cal = 0 + "";
     }
     public void addFood(Food food) {
         // update food list
         // update net
         foodList.add(food);
-        net = String.valueOf(Integer.parseInt(net)-food.getTotal_cal());
+        total_cal = String.valueOf(Integer.parseInt(total_cal)+food.getTotal_cal());
+        net_cal = String.valueOf(Integer.parseInt(net_cal)-food.getTotal_cal());
+    }
+
+    public String getNet() {
+        return this.net_cal;
+    }
+
+    public void setNet(String net) {
+        this.net_cal = net;
+    }
+
+    public String getTotal() {
+        return this.total_cal;
+    }
+
+    public void setTotal(String total_cal) {
+        this.total_cal = total_cal;
+    }
+
+    public List<Food> getFood() {
+        return this.foodList;
+    }
+    public void setFood(List<Food> foodList) {
+        this.foodList = foodList;
     }
 }
