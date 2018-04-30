@@ -240,11 +240,10 @@ public class UserInputActivity extends AppCompatActivity {
                     JSONObject food = al.get(i).getJSONObject("food");
                     JSONObject measure = al.get(i).getJSONArray("measures").getJSONObject(0);
                     intent.putExtra("foodURI", food.get("uri").toString());
-                    System.out.println(food.get("label").toString());
-                    System.out.println(measure.get("label").toString());
                     intent.putExtra("foodLabel", food.get("label").toString());
                     intent.putExtra("measureURI", measure.get("uri").toString());
                     intent.putExtra("measureLabel", measure.get("label").toString());
+                    intent.putExtra("position", -1);
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getApplicationContext(), "transfer data error!", Toast.LENGTH_SHORT).show();

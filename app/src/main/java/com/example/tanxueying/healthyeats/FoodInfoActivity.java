@@ -71,6 +71,7 @@ public class FoodInfoActivity extends AppCompatActivity {
     private String measureURI;
     private String measureLabel;
     private String title;
+    private int position;
 
     private float unit_kcal;
 
@@ -82,6 +83,7 @@ public class FoodInfoActivity extends AppCompatActivity {
         food_name= (TextView) findViewById(R.id.title);
 
 
+        position = getIntent().getExtras().getInt("position");
 
         foodLabel = getIntent().getExtras().getString("foodLabel");
         foodURI = getIntent().getExtras().getString("foodURI");
@@ -175,8 +177,18 @@ public class FoodInfoActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                user.addFood(food);
-                ref.setValue(user);
+                System.out.println(position);
+                System.out.println("+++++++++++++++++++++++++++");
+                if (position>=0) {
+                    List<Food> list = user.getFoodList();
+                    list.set(position, food);
+                    ref.child("foodList").setValue(list);
+                } else {
+                    List<Food> list = user.addFood(food);
+                    ref.child("foodList").setValue(list);
+                }
+
+//                ref.setValue(user);
 //                Toast.makeText(FoodInfoActivity.this, "Change Saved!", Toast.LENGTH_SHORT).show();
             }
 

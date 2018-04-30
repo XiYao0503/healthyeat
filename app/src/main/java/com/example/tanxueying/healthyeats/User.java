@@ -1,11 +1,7 @@
 package com.example.tanxueying.healthyeats;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class User {
 
@@ -16,10 +12,9 @@ public class User {
     private String weight;
     private String exercise;
     private String goal_cal;
-    private List<String> food_id_list;
+    private List<Food> foodList;
     private String net_cal;
     private String total_cal;
-    private String index = 1 + "";
 
     public User(){};
 
@@ -30,7 +25,7 @@ public class User {
         this.height = height;
         this.weight = weight;
         this.exercise = exercise;
-        this.food_id_list = new ArrayList<>();
+        this.foodList = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -101,13 +96,18 @@ public class User {
         this.net_cal = goal_cal;
         this.total_cal = 0 + "";
     }
-    public void addFood(Food food) {
+    public List<Food> addFood(Food food) {
         // update food list
         // update net
+//        total_cal = String.valueOf(Float.parseFloat(total_cal)+Float.parseFloat(food.getTotal_kcal()));
+//        net_cal = String.valueOf(Float.parseFloat(net_cal)-Float.parseFloat(food.getTotal_kcal()));
+        if (foodList == null || foodList.isEmpty()) {
+            foodList = new ArrayList<>();
 
-        index = String.valueOf(Integer.parseInt(index)+1);
-        total_cal = String.valueOf(Float.parseFloat(total_cal)+Float.parseFloat(food.getTotal_kcal()));
-        net_cal = String.valueOf(Float.parseFloat(net_cal)-Float.parseFloat(food.getTotal_kcal()));
+        }
+        foodList.add(food);
+
+        return foodList;
     }
 
     public String getNet() {
@@ -126,11 +126,11 @@ public class User {
         this.total_cal = total_cal;
     }
 
-    public List<String> getFood_id_list() {
-        return food_id_list;
+    public List<Food> getFoodList() {
+        return foodList;
     }
 
-    public void setFood_id_list(List<String> food_id_list) {
-        this.food_id_list = food_id_list;
+    public void setFoodList(List<Food> foodList) {
+        this.foodList = foodList;
     }
 }
