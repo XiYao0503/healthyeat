@@ -243,7 +243,6 @@ public class UserInputActivity extends AppCompatActivity {
                     intent.putExtra("foodLabel", food.get("label").toString());
                     intent.putExtra("measureURI", measure.get("uri").toString());
                     intent.putExtra("measureLabel", measure.get("label").toString());
-                    intent.putExtra("isFromInput", "True");
                     System.out.println(measure.get("label").toString());
                     intent.putExtra("position", -1);
                 } catch (JSONException e) {
