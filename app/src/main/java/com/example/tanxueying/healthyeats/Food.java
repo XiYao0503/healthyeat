@@ -16,6 +16,8 @@ public class Food {
     private String quantity;
     private String yield;
 
+    public Food() {}
+
     public String getLabel() {
         return label;
     }
@@ -79,8 +81,6 @@ public class Food {
     public void setYield(String yield) {
         this.yield = yield;
     }
-
-    public Food() {}
 
     public Food (String label, String labelUrl, String measure, String measureUrl) {
         this.label = label;

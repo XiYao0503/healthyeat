@@ -1,13 +1,7 @@
 package com.example.tanxueying.healthyeats;
 
-import android.util.Log;
-
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class User {
 
@@ -18,10 +12,8 @@ public class User {
     private String weight;
     private String exercise;
     private String goal_cal;
-//    private Map<String, Food> food;
     private String net_cal;
     private String total_cal;
-    private String index = 1 + "";
 
     public User(){};
 
@@ -32,12 +24,6 @@ public class User {
         this.height = height;
         this.weight = weight;
         this.exercise = exercise;
-//        this.food =  new HashMap<>();
-//        Map<String, Food> map = new HashMap<>();
-//        food.put("null", null);
-
-//        map.put("0", "0");
-
     }
 
     public String getUsername() {
@@ -111,12 +97,9 @@ public class User {
     public void addFood(Food food) {
         // update food list
         // update net
-        Log.e("change the cal", "true");
-        Log.e("old cal", total_cal);
         total_cal = String.valueOf(Float.parseFloat(total_cal)+Float.parseFloat(food.getTotal_kcal()));
-        Log.e("food cal", food.getTotal_kcal());
-        Log.e("new cal", total_cal);
         net_cal = String.valueOf(Float.parseFloat(net_cal)-Float.parseFloat(food.getTotal_kcal()));
+
     }
 
     public String getNet() {
@@ -136,10 +119,4 @@ public class User {
     }
 
 
-//    public Map<String, Food> getFood() {
-//        return this.food;
-//    }
-//    public void setFood(Map<String, Food> foodIdList) {
-//        this.food = foodIdList;
-//    }
 }
