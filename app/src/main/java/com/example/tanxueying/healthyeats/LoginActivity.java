@@ -37,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (auth.getCurrentUser() != null) {
             startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+            System.out.println(auth.getCurrentUser().getEmail());
             finish();
         }
 
@@ -86,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                                 } else {
                                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
 //                                    intent.putExtra("uid", auth.getCurrentUser().getUid());
+
                                     startActivity(intent);
                                     finish();
                                 }

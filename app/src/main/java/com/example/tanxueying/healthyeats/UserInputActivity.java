@@ -86,7 +86,8 @@ import com.example.tanxueying.healthyeats.R;
 public class UserInputActivity extends AppCompatActivity {
     private static final String IMAGE_DIRECTORY = "/demonuts";
     private int GALLERY = 1, CAMERA = 2;
-
+    private List<JSONObject> al;
+    private List<String> list;
     private EditText input;
     private ListView foodList;
 //    private String selectedFood;
@@ -170,11 +171,12 @@ public class UserInputActivity extends AppCompatActivity {
         dialog = new ProgressDialog(this);
         dialog.setMessage("Loading....");
         dialog.show();
+        al = new ArrayList<>();
+        list = new ArrayList<>();
         for (String text: text_list) {
             String url = generateUrl(text);
             Log.d(TAG, url);
-            final List<JSONObject> al = new ArrayList<>();
-            final List<String> list = new ArrayList<>();
+
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,  new Response.Listener<JSONObject>() {
 
                 @Override
@@ -191,10 +193,16 @@ public class UserInputActivity extends AppCompatActivity {
             RequestQueue rQueue = Volley.newRequestQueue(UserInputActivity.this);
             rQueue.add(request);
         }
+        dialog.dismiss();
+        System.out.println("transmitData");
+        transmitData();
+        System.out.println("finish transmitData");
 
     }
 
     private void parseJsonData(JSONObject object, final List<JSONObject> al, List<String> list) {
+        System.out.println("before add+++++++++++++++++++++++++++");
+        System.out.println(list.size());
         try {
             JSONArray foodArray = object.getJSONArray("hints");
 
@@ -208,35 +216,44 @@ public class UserInputActivity extends AppCompatActivity {
                 al.add(cur);
                 set.add(s);
                 list.add(s);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
+                foodList.setAdapter(adapter);
             }
-            System.out.print(list.size());
-            ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
-            foodList.setAdapter(adapter);
-            foodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    Intent intent = new Intent(UserInputActivity.this, FoodInfoActivity.class);
-                    // transfer the data to the next page
-                    try {
-                        JSONObject food = al.get(i).getJSONObject("food");
-                        JSONObject measure = al.get(i).getJSONArray("measures").getJSONObject(0);
-                        intent.putExtra("foodURI", food.get("uri").toString());
-                        intent.putExtra("foodLabel", food.get("label").toString());
-                        intent.putExtra("measureURI", measure.get("uri").toString());
-                        intent.putExtra("measureLabel", measure.get("label").toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(), "transfer data error!", Toast.LENGTH_SHORT).show();
-                    }
+            System.out.println("after add==================================");
+            System.out.println(list.size());
 
-                    startActivity(intent);
-                }
-            });
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        dialog.dismiss();
+
+    }
+
+    private void transmitData(){
+
+        foodList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent intent = new Intent(UserInputActivity.this, FoodInfoActivity.class);
+                // transfer the data to the next page
+                try {
+                    JSONObject food = al.get(i).getJSONObject("food");
+                    JSONObject measure = al.get(i).getJSONArray("measures").getJSONObject(0);
+                    intent.putExtra("foodURI", food.get("uri").toString());
+                    System.out.println(food.get("label").toString());
+                    System.out.println(measure.get("label").toString());
+                    intent.putExtra("foodLabel", food.get("label").toString());
+                    intent.putExtra("measureURI", measure.get("uri").toString());
+                    intent.putExtra("measureLabel", measure.get("label").toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "transfer data error!", Toast.LENGTH_SHORT).show();
+                }
+
+                startActivity(intent);
+            }
+        });
+
     }
 
     private void showPictureDialog(){

@@ -26,14 +26,16 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class HomeActivity extends AppCompatActivity implements View.OnClickListener {
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private List<String> dataList;
-    private List<Food> foodList;
+    private List<String> food_id_list;
     private List<String> sizeList;
     private ClickItemContentAdapter adapter;
+    private String[] pos2index;
 
 
     //Get the login user
@@ -88,12 +90,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 //list all the food records with delete button
                 dataList = new ArrayList<>();
                 sizeList = new ArrayList<>();
-                foodList = user.getFood();
-                for (Food food : user.getFood()) {
-                    dataList.add(food.getLabel());
-                    sizeList.add("Serving size: "+ food.getQuantity());
+                food_id_list = user.getFood_id_list();
 
-                }
+
 //                for (int i = 0; i < 30; i++) {
 //                    dataList.add("Sushi"+i );
 //                    sizeList.add("Serving size: " + i);
@@ -108,9 +107,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         //go to the food information
-                        Food select_food = foodList.get(position);
+//                        Food select_food = foodMap.get(pos2index[position]);
 //                        Intent intent = new Intent(HomeActivity.this, FoodInfoActivity.class);
-//                        intent.putExtra("food", select_food)
+//                        intent.putExtra("foodURI", select_food.getLabelUrl());
+//                        System.out.println(select_food.getLabel());
+//                        System.out.println(select_food.getMeasure());
+//                        intent.putExtra("foodLabel", select_food.getLabel());
+//                        intent.putExtra("measureURI", select_food.getMeasureUrl());
+//                        intent.putExtra("measureLabel", select_food.getMeasure());
 //                        startActivity(intent);
                     }
                 });
@@ -148,17 +152,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dataList.remove(position);
-                                //update the food list
-                                Food rm = foodList.get(position);
-                                foodList.remove(position);
-                                user.setFood(foodList);
-//                                update the net cal
-                                user.setTotal("" + (Float.parseFloat(user.getTotal()) - Float.parseFloat(rm.getTotal_kcal())));
-                                user.setNet("" + Float.parseFloat(user.getNet()) + Float.parseFloat(rm.getTotal_kcal()));
-
-
-                                adapter.notifyDataSetChanged();
+//                                dataList.remove(position);
+//                                sizeList.remove(position);
+//                                //update the food list
+//                                Food rm = foodMap.get(pos2index[position]);
+//                                System.out.println(rm.getLabel());
+//                                foodMap.remove(pos2index[position]);
+//                                user.setFood(foodMap);
+////                                update the net cal
+//                                user.setTotal("" + (Float.parseFloat(user.getTotal()) - Float.parseFloat(rm.getTotal_kcal())));
+//                                user.setNet("" + Float.parseFloat(user.getNet()) + Float.parseFloat(rm.getTotal_kcal()));
+//
+//
+//                                adapter.notifyDataSetChanged();
                             }
                         });
                         builder.show();

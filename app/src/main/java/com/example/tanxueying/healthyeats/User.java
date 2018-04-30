@@ -1,7 +1,11 @@
 package com.example.tanxueying.healthyeats;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class User {
 
@@ -12,12 +16,12 @@ public class User {
     private String weight;
     private String exercise;
     private String goal_cal;
-    private List<Food> foodList;
+    private List<String> food_id_list;
     private String net_cal;
     private String total_cal;
-    public User() {
+    private String index = 1 + "";
 
-    }
+    public User(){};
 
     public User(String username, String gender, String age, String height, String weight, String exercise) {
         this.username = username;
@@ -26,7 +30,7 @@ public class User {
         this.height = height;
         this.weight = weight;
         this.exercise = exercise;
-        this.foodList =  new ArrayList<>();
+        this.food_id_list = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -100,7 +104,8 @@ public class User {
     public void addFood(Food food) {
         // update food list
         // update net
-        foodList.add(food);
+
+        index = String.valueOf(Integer.parseInt(index)+1);
         total_cal = String.valueOf(Float.parseFloat(total_cal)+Float.parseFloat(food.getTotal_kcal()));
         net_cal = String.valueOf(Float.parseFloat(net_cal)-Float.parseFloat(food.getTotal_kcal()));
     }
@@ -121,10 +126,11 @@ public class User {
         this.total_cal = total_cal;
     }
 
-    public List<Food> getFood() {
-        return this.foodList;
+    public List<String> getFood_id_list() {
+        return food_id_list;
     }
-    public void setFood(List<Food> foodList) {
-        this.foodList = foodList;
+
+    public void setFood_id_list(List<String> food_id_list) {
+        this.food_id_list = food_id_list;
     }
 }

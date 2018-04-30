@@ -239,7 +239,7 @@ public class FoodInfoActivity extends AppCompatActivity {
             List<JSONObject> ingredientsList = new ArrayList<>();
             JSONObject ingredientObjects = object.getJSONObject("totalNutrients");
             Iterator<String> keys = ingredientObjects.keys();
-            unit_kcal = Float.parseFloat(ingredientObjects.getJSONObject("ENERC_KCAL").getJSONObject("quantity").toString());
+            unit_kcal = ((Double)ingredientObjects.getJSONObject("ENERC_KCAL").get("quantity")).floatValue();
             while (keys.hasNext()) {
                 String key = keys.next();
                 JSONObject value = ingredientObjects.getJSONObject(key);
@@ -249,7 +249,7 @@ public class FoodInfoActivity extends AppCompatActivity {
             String[] ingredients = new String[ingredientsList.size()];
             for(int i = 0; i < ingredientsList.size(); ++i) {
                 JSONObject cur = ingredientsList.get(i);
-                ingredients[i] = cur.get("label").toString() + ": " + decimalFormat.format((Float)cur.get("quantity")) + " " + cur.get("unit").toString();
+                ingredients[i] = cur.get("label").toString() + ": " + decimalFormat.format(((Double) cur.get("quantity")).floatValue()) + " " + cur.get("unit").toString();
 //                Log.d("bbbbbbbbb", cur.get("label").toString());
 
                 ListView ingredientList = (ListView)findViewById(R.id.ingredient);
