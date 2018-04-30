@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -25,6 +26,7 @@ import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.gson.Gson;
 
@@ -56,6 +58,9 @@ public class FoodInfoActivity extends AppCompatActivity {
         final String foodURI = getIntent().getExtras().getString("foodURI");
         final String measureURI = getIntent().getExtras().getString("measureURI");
         final String measureLabel = getIntent().getExtras().getString("measureLabel");
+
+        final TextView food_name = (TextView) findViewById(R.id.title);
+        food_name.setText(foodLabel);
 
 
         showInfomation(foodURI, measureURI);
@@ -150,30 +155,34 @@ public class FoodInfoActivity extends AppCompatActivity {
             }
 
             // for pieChart
-            List<JSONObject> chartList = new ArrayList<>();
-            JSONObject chartObjects = object.getJSONObject("totalDaily");
-            Iterator<String> chartKeys = chartObjects.keys();
-            while (chartKeys.hasNext()) {
-                String key = chartKeys.next();
-                JSONObject value = chartObjects.getJSONObject(key);
-                chartList.add(value);
-            }
-
             List<String> xValues = new ArrayList<>();
             List<Float> yValues = new ArrayList<>();
+            float total = 0;
             float sum = 0;
-            for(int i = 0; i < chartList.size(); ++i) {
-                JSONObject cur = chartList.get(i);
-                float percentage = ((Double) cur.get("quantity")).floatValue() / 3.69f;
-                if (percentage > 4.0f) {
-                    sum += percentage;
-//                    Log.d("aaaaaaaaa", cur.get("label").toString() + percentage);
-                    xValues.add(cur.get("label").toString());
-                    yValues.add(percentage);
+            for(JSONObject cur : ingredientsList) {
+                if (cur.get("unit").toString().equals("g")) {
+                    total += ((Double) cur.get("quantity")).floatValue() * 1000.0f;
+                } else if (cur.get("unit").toString().equals("mg")) {
+                    total += ((Double) cur.get("quantity")).floatValue();
                 }
             }
+
+            for(JSONObject cur : ingredientsList) {
+                float quantity = 0.0f;
+                if (cur.get("unit").toString().equals("g")) {
+                    quantity = ((Double) cur.get("quantity")).floatValue() * 1000.0f;
+                } else if (cur.get("unit").toString().equals("mg")) {
+                    quantity = ((Double) cur.get("quantity")).floatValue();
+                }
+                if (quantity > total / 20) {
+                    sum += quantity;
+                    xValues.add(cur.get("label").toString());
+                    yValues.add(quantity * 100.0f / total);
+                }
+            }
+
             xValues.add("Other");
-            yValues.add(100.0f - sum);
+            yValues.add(1.0f - sum / total);
             pieChart(xValues, yValues);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -193,6 +202,7 @@ public class FoodInfoActivity extends AppCompatActivity {
         PieDataSet dataSet = new PieDataSet(pieEntries, "Ingredient Percentage");
         dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         PieData data = new PieData(dataSet);
+        data.setValueFormatter(new PercentFormatter());
 
         PieChart pieChart = (PieChart) findViewById(R.id.piechart);
         pieChart.setData(data);

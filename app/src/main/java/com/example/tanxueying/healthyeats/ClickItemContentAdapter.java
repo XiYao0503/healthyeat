@@ -12,10 +12,12 @@ import java.util.List;
 public class ClickItemContentAdapter extends BaseAdapter {
     private final View.OnClickListener listener;
     private final List<String> dataList;
+    private final List<String> sizeList;
 
-    public ClickItemContentAdapter(View.OnClickListener listener, List<String> dataList) {
+    public ClickItemContentAdapter(View.OnClickListener listener, List<String> dataList, List<String> sizeList) {
         this.listener = listener;
         this.dataList = dataList;
+        this.sizeList = sizeList;
     }
 
     @Override
@@ -41,12 +43,14 @@ public class ClickItemContentAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_click_item_content, parent,false);
             holder.iv_del = (ImageView) convertView.findViewById(R.id.iv_del);
             holder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
+            holder.tv_size = (TextView) convertView.findViewById(R.id.tv_size);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         holder.tv_title.setText(dataList.get(position));
+        holder.tv_size.setText(sizeList.get(position));
 
         //add listener to items
         holder.iv_del.setOnClickListener(listener);
@@ -58,6 +62,7 @@ public class ClickItemContentAdapter extends BaseAdapter {
 
     class ViewHolder {
         TextView  tv_title;
+        TextView  tv_size;
         ImageView iv_del;
     }
 }

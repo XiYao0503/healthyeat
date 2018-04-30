@@ -12,7 +12,6 @@
         android:id="@+id/bar"
         android:layout_width="0dp"
         android:layout_height="54dp"
-
         android:background="@color/colorPrimary"
         android:theme="@style/AppTheme"
         app:layout_constraintEnd_toEndOf="parent"

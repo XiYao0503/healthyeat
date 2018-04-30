@@ -123,13 +123,6 @@ public class UserInputActivity extends AppCompatActivity {
             }
         });
 
-        final ImageButton button_done = (ImageButton)findViewById(R.id.done);
-        button_done.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(UserInputActivity.this, HomeActivity.class);
-                startActivity(intent);
-            }
-        });
 
         if (android.os.Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();

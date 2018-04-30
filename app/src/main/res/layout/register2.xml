@@ -101,11 +101,11 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_weight="1"
+                android:inputType="numberDecimal"
                 android:baselineAligned="false"
                 android:ems="10"
                 android:gravity="center_vertical"
                 android:hint="@string/height"
-                android:inputType="textPersonName"
                 android:textAlignment="inherit" />
 
 
@@ -151,7 +151,7 @@
                 android:ems="10"
                 android:gravity="center_vertical"
                 android:hint="@string/curweight"
-                android:inputType="textPersonName"
+                android:inputType="numberDecimal"
                 android:textAlignment="inherit" />
 
 
@@ -197,7 +197,7 @@
                 android:ems="10"
                 android:gravity="center_vertical"
                 android:hint="Daily Exercise"
-                android:inputType="textPersonName"
+                android:inputType="numberDecimal"
                 android:textAlignment="inherit" />
 
 
