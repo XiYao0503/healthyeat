@@ -310,7 +310,7 @@ public class FoodInfoActivity extends AppCompatActivity {
             }
 
             xValues.add("Other");
-            yValues.add(1.0f - sum / total);
+            yValues.add((1.0f - sum / total) * 100.0f);
             pieChart(xValues, yValues);
 
         } catch (JSONException e) {
