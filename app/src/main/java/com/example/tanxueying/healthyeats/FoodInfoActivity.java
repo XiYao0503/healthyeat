@@ -131,8 +131,6 @@ public class FoodInfoActivity extends AppCompatActivity {
         });
         showInfomation(foodURI, measureURI);
 
-
-
 //        final String yield_string = getIntent().getExtras().getString("yield");
 
         final ImageButton button_done = (ImageButton)findViewById(R.id.imageButton5);
@@ -173,9 +171,13 @@ public class FoodInfoActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
+                //update the food record
+                String foodId = ref.child("food").push().getKey();
+                Log.e("foodid", foodId);
+                ref.child("food").child(foodId).setValue(food);
                 user.addFood(food);
-                ref.setValue(user);
-//                Toast.makeText(FoodInfoActivity.this, "Change Saved!", Toast.LENGTH_SHORT).show();
+                ref.child("total").setValue(user.getTotal());
+                ref.child("net").setValue(user.getNet());
             }
 
             @Override

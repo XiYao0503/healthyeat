@@ -80,6 +80,8 @@ public class Food {
         this.yield = yield;
     }
 
+    public Food() {}
+
     public Food (String label, String labelUrl, String measure, String measureUrl) {
         this.label = label;
         this.labelUrl = labelUrl;

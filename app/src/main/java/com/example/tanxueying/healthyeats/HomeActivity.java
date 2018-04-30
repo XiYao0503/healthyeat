@@ -32,7 +32,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private List<String> dataList;
-    private List<String> food_id_list;
+
+    private List<String> foodIdList;
+
     private List<String> sizeList;
     private ClickItemContentAdapter adapter;
     private String[] pos2index;
@@ -82,22 +84,27 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         // Attach a listener to read the data at our user reference
         ref.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(final DataSnapshot dataSnapshot) {
                 //get the user object
                 User user = dataSnapshot.getValue(User.class);
+
                 //show the current net calories on the top
                 net_goal.setText(user.getGoal_cal() + "-" + user.getTotal() + "=" + user.getNet());
                 //list all the food records with delete button
                 dataList = new ArrayList<>();
                 sizeList = new ArrayList<>();
-                food_id_list = user.getFood_id_list();
+                foodIdList = new ArrayList<>();
 
+                if (dataSnapshot.child("food").getValue() != null) {
+                    for (DataSnapshot emp : dataSnapshot.child("food").getChildren()) {
+                        Food food = emp.getValue(Food.class);
+                        dataList.add(food.getLabel());
+                        foodIdList.add(emp.getKey());
+                        sizeList.add("Serving size: " + 20);
+//                        sizeList.add("Serving size: " + food.getSize());
+                    }
 
-//                for (int i = 0; i < 30; i++) {
-//                    dataList.add("Sushi"+i );
-//                    sizeList.add("Serving size: " + i);
-//                }
-
+                }
                 ListView listView = (ListView) findViewById(R.id.scrollView2);
                 adapter = new ClickItemContentAdapter(HomeActivity.this, dataList, sizeList);
                 listView.setAdapter(adapter);
@@ -107,7 +114,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         //go to the food information
-//                        Food select_food = foodMap.get(pos2index[position]);
+                        String foodId = foodIdList.get(position);
+                        Food food = dataSnapshot.child("food").child(foodId).getValue(Food.class);
 //                        Intent intent = new Intent(HomeActivity.this, FoodInfoActivity.class);
 //                        intent.putExtra("foodURI", select_food.getLabelUrl());
 //                        System.out.println(select_food.getLabel());
@@ -133,9 +141,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         final DatabaseReference ref2 = database.getReference().child(uid);
         // Attach a listener to read the data at our posts reference
-        ref2.addValueEventListener(new ValueEventListener() {
+        ref2.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(final DataSnapshot dataSnapshot) {
                 final User user = dataSnapshot.getValue(User.class);
                 switch (v.getId()) {
                     case R.id.iv_del:   //delete button
@@ -152,18 +160,34 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                dataList.remove(position);
+                                sizeList.remove(position);
+                                String foodId = foodIdList.get(position);
+                                foodIdList.remove(position);
+                                Food rm = dataSnapshot.child("food").child(foodId).getValue(Food.class);
+
+////                                //update the food list
+                                dataSnapshot.child("food").child(foodId).getRef().removeValue();
+////
+//////                                update the net cal
+                                user.setTotal(String.valueOf(Float.parseFloat(user.getTotal()) - Float.parseFloat(rm.getTotal_kcal())));
+                                user.setNet(String.valueOf(Float.parseFloat(user.getNet()) + Float.parseFloat(rm.getTotal_kcal())));
+                                ref.child("total").setValue(user.getTotal());
+                                ref.child("net").setValue(user.getNet());
+
+                                adapter.notifyDataSetChanged();
+
 //                                dataList.remove(position);
-//                                sizeList.remove(position);
 //                                //update the food list
-//                                Food rm = foodMap.get(pos2index[position]);
-//                                System.out.println(rm.getLabel());
-//                                foodMap.remove(pos2index[position]);
-//                                user.setFood(foodMap);
+//                                String rmId = foodIdList.get(position);
+//                                Food rmFood = dataSnapshot.child("food").child(rmId).getValue(Food.class);
+//                                foodIdList.remove(position);
+//                                user.setFood(foodIdList);
+//                                dataSnapshot.child(rmId).getRef().removeValue();
 ////                                update the net cal
-//                                user.setTotal("" + (Float.parseFloat(user.getTotal()) - Float.parseFloat(rm.getTotal_kcal())));
-//                                user.setNet("" + Float.parseFloat(user.getNet()) + Float.parseFloat(rm.getTotal_kcal()));
-//
-//
+//                                user.setTotal("" + (Float.parseFloat(user.getTotal()) - Float.parseFloat(rmFood.getTotal_kcal())));
+//                                user.setNet("" + Float.parseFloat(user.getNet()) + Float.parseFloat(rmFood.getTotal_kcal()));
+
 //                                adapter.notifyDataSetChanged();
                             }
                         });
@@ -171,6 +195,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         break;
                 }
             }
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getCode());

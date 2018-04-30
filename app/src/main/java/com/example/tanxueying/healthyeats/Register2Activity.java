@@ -110,8 +110,6 @@ public class Register2Activity extends AppCompatActivity {
                                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                                     final DatabaseReference ref = database.getReference();
                                     ref.child(uid).setValue(newUser);
-                                    System.out.println(newUser.getUsername());
-                                    System.out.println("=======================================");
                                     //go to login
                                     startActivity(new Intent(Register2Activity.this, LoginActivity.class));
                                     finish();
