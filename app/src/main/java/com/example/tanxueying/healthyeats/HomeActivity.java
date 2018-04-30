@@ -89,15 +89,15 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 dataList = new ArrayList<>();
                 sizeList = new ArrayList<>();
                 foodList = user.getFood();
-//                for (Food food : user.getFood()) {
-//                    dataList.add(food.getLabel());
-//                    sizeList.add(food.getSize());
-//
-//                }
-                for (int i = 0; i < 30; i++) {
-                    dataList.add("Sushi"+i );
-                    sizeList.add("Serving size: " + i);
+                for (Food food : user.getFood()) {
+                    dataList.add(food.getLabel());
+                    sizeList.add("Serving size: "+ food.getQuantity());
+
                 }
+//                for (int i = 0; i < 30; i++) {
+//                    dataList.add("Sushi"+i );
+//                    sizeList.add("Serving size: " + i);
+//                }
 
                 ListView listView = (ListView) findViewById(R.id.scrollView2);
                 adapter = new ClickItemContentAdapter(HomeActivity.this, dataList, sizeList);
@@ -154,8 +154,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                                 foodList.remove(position);
                                 user.setFood(foodList);
 //                                update the net cal
-                                user.setTotal("" + (Integer.parseInt(user.getTotal()) - rm.getTotal_cal()));
-                                user.setNet("" + Integer.parseInt(user.getNet() + rm.getTotal_cal()));
+                                user.setTotal("" + (Float.parseFloat(user.getTotal()) - Float.parseFloat(rm.getTotal_kcal())));
+                                user.setNet("" + Float.parseFloat(user.getNet()) + Float.parseFloat(rm.getTotal_kcal()));
+
 
                                 adapter.notifyDataSetChanged();
                             }

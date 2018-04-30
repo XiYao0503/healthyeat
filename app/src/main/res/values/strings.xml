@@ -10,7 +10,7 @@
     <string name="daily_exercise">Daily Exercise</string>
     <string name="pounds">lbs</string>
     <string name="inch">in</string>
-    <string name="cal_day">cal/d</string>
+    <string name="cal_day">kcal/d</string>
     <string name="next_step">Next Step</string>
     <string name="age">Age</string>
     <string name="year">years</string>
@@ -28,6 +28,8 @@
     <string name="numver_serve">Number of Servings</string>
     <string name="login">Login</string>
     <string name="delete">Delete</string>
+    <string name="total_kcal">Total KCAL</string>
+    <string name="kcal">KCAL</string>
 
     <string name = "calory_num"> 1677  -  894  =   1018 </string>
     <string name="goal">Goal  -  total food  =  Net</string>

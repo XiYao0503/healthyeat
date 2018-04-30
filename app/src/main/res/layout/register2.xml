@@ -208,7 +208,7 @@
                 android:layout_weight="1"
                 android:baselineAligned="false"
                 android:gravity="center_vertical"
-                android:text="cal"
+                android:text="kcal"
                 android:textAlignment="inherit"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold" />

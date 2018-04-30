@@ -10,7 +10,7 @@ public class Constant {
     public final static String PARSER_URL = "https://api.edamam.com/api/food-database/parser?app_id=10804ad3&app_key=8ac0473de855b1492364d7150a0e9d64&ingr=";
     public final static String POST_URL = "https://api.edamam.com/api/food-database/nutrients?app_id=10804ad3&app_key=8ac0473de855b1492364d7150a0e9d64";
     //    private final static String PARSER = "parser?";
-    private final static int QUANTITY = 1;
+    private final static String QUANTITY = "1";
 
     public static String getId() {
         return ID;
@@ -18,7 +18,7 @@ public class Constant {
     public static String getKey() {
         return KEY;
     }
-    public static int getQUANTITY() {
+    public static String getQUANTITY() {
         return  QUANTITY;
     }
 }
