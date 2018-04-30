@@ -101,7 +101,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         dataList.add(food.getLabel());
                         foodIdList.add(emp.getKey());
                         sizeList.add("Serving size: " + food.getYield());
-//                        sizeList.add("Serving size: " + food.getSize());
                     }
 
                 }
@@ -124,6 +123,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         intent.putExtra("measureURI", select_food.getMeasureUrl());
                         intent.putExtra("measureLabel", select_food.getMeasure());
                         intent.putExtra("position", position);
+                        intent.putExtra("isFromHome","True");
                         startActivity(intent);
                     }
                 });

@@ -72,6 +72,7 @@ public class FoodInfoActivity extends AppCompatActivity {
     private String measureLabel;
     private String title;
     private int position;
+    private String isFromHome;
 
     private float unit_kcal;
 
@@ -81,6 +82,7 @@ public class FoodInfoActivity extends AppCompatActivity {
         setContentView(R.layout.food_info);
 
         food_name= (TextView) findViewById(R.id.title);
+        total_kcal = (TextView) findViewById(R.id.total_value);
 
 
         position = getIntent().getExtras().getInt("position");
@@ -89,6 +91,7 @@ public class FoodInfoActivity extends AppCompatActivity {
         foodURI = getIntent().getExtras().getString("foodURI");
         measureURI = getIntent().getExtras().getString("measureURI");
         measureLabel = getIntent().getExtras().getString("measureLabel");
+        isFromHome = getIntent().getExtras().getString("isFromHome", "False");
 
         unit = (TextView)findViewById(R.id.unit);
         unit.setText(measureLabel);
@@ -142,7 +145,10 @@ public class FoodInfoActivity extends AppCompatActivity {
         button_done.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(FoodInfoActivity.this, HomeActivity.class);
-                saveFoodInfo();
+                if (isFromHome.equals("False")) {
+                    saveFoodInfo();
+                    startActivity(intent);
+                }
                 startActivity(intent);
             }
         });
@@ -150,8 +156,13 @@ public class FoodInfoActivity extends AppCompatActivity {
         final ImageButton button_back = (ImageButton)findViewById(R.id.imageButton2);
         button_back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                saveFoodInfo();
-                finish();
+                if (isFromHome.equals("False")) {
+                    saveFoodInfo();
+                    finish();
+                } else {
+                    Intent intent = new Intent(FoodInfoActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -165,6 +176,7 @@ public class FoodInfoActivity extends AppCompatActivity {
         final Food food = new Food(foodLabel, foodURI, measureLabel, measureURI);
         quantity = Float.parseFloat(serving_size.getText().toString().trim());
         yield = Float.parseFloat(num_of_serving.getText().toString().trim());
+
         food.setQuantity(decimalFormat.format(quantity));
         food.setYield(decimalFormat.format(yield));
         food.setKcal(decimalFormat.format(quantity*unit_kcal));
@@ -245,7 +257,6 @@ public class FoodInfoActivity extends AppCompatActivity {
             JSONObject ingredientObjects = object.getJSONObject("totalNutrients");
             Iterator<String> keys = ingredientObjects.keys();
             unit_kcal = ((Double)ingredientObjects.getJSONObject("ENERC_KCAL").get("quantity")).floatValue();
-            total_kcal = (TextView) findViewById(R.id.total_value);
             total_kcal.setText(decimalFormat.format(unit_kcal*yield * quantity) +"KCAL");
             System.out.println(unit_kcal);
             while (keys.hasNext()) {

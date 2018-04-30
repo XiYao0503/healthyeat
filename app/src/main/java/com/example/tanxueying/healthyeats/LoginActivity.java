@@ -86,7 +86,6 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 } else {
                                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-//                                    intent.putExtra("uid", auth.getCurrentUser().getUid());
 
                                     startActivity(intent);
                                     finish();
