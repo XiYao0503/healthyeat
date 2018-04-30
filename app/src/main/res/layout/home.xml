@@ -133,7 +133,8 @@
         android:selectAllOnFocus="false"
 
         android:singleLine="false"
-        android:text="@string/calory_num"
+
+
         android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
         android:textColor="@android:color/black"
 
@@ -144,16 +145,6 @@
         app:layout_constraintStart_toStartOf="@+id/data_view"
         app:layout_constraintTop_toTopOf="@+id/data_view"
         app:layout_constraintVertical_bias="0.508" />
-
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/rl"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></RelativeLayout>
 
     <ListView
         android:id="@+id/scrollView2"
