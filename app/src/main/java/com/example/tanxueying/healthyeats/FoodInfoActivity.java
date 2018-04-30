@@ -145,26 +145,22 @@ public class FoodInfoActivity extends AppCompatActivity {
         button_done.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(FoodInfoActivity.this, HomeActivity.class);
-                if (isFromHome.equals("False")) {
-                    saveFoodInfo();
-                    startActivity(intent);
-                }
+                saveFoodInfo();
                 startActivity(intent);
+
             }
         });
 
         final ImageButton button_back = (ImageButton) findViewById(R.id.imageButton2);
         button_back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                saveFoodInfo();
-                finish();
-//                if (isFromHome.equals("False")) {
-//                    saveFoodInfo();
-//                    finish();
-//                } else {
-//                    Intent intent = new Intent(FoodInfoActivity.this, HomeActivity.class);
-//                    startActivity(intent);
-//                }
+                if (isFromHome.equals("False")) {
+                    saveFoodInfo();
+                    finish();
+                } else {
+                    Intent intent = new Intent(FoodInfoActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
