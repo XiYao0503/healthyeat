@@ -100,7 +100,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                         Food food = emp.getValue(Food.class);
                         dataList.add(food.getLabel());
                         foodIdList.add(emp.getKey());
-                        sizeList.add("Serving size: " + food.getYield());
+                        sizeList.add("Cal: " + food.getTotal_kcal() + "kcal");
                     }
 
                 }
