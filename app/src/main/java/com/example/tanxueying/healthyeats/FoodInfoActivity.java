@@ -65,6 +65,7 @@ public class FoodInfoActivity extends AppCompatActivity {
 
         showInfomation(foodURI, measureURI);
 
+
 //        final String yield_string = getIntent().getExtras().getString("yield");
 
         final ImageButton button_done = (ImageButton)findViewById(R.id.imageButton5);

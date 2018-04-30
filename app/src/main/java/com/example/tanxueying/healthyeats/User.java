@@ -12,7 +12,7 @@ public class User {
     private String weight;
     private String exercise;
     private String goal_cal;
-    private List<Food> foodList;
+    private List<String> foodIdList;
     private String net_cal;
     private String total_cal;
     public User() {
@@ -26,7 +26,7 @@ public class User {
         this.height = height;
         this.weight = weight;
         this.exercise = exercise;
-        this.foodList =  new ArrayList<>();
+        this.foodIdList =  new ArrayList<>();
     }
 
     public String getUsername() {
@@ -97,10 +97,10 @@ public class User {
         this.net_cal = goal_cal;
         this.total_cal = 0 + "";
     }
-    public void addFood(Food food) {
+    public void addFood(Food food, String foodId) {
         // update food list
         // update net
-        foodList.add(food);
+        foodIdList.add(foodId);
         total_cal = String.valueOf(Integer.parseInt(total_cal)+food.getTotal_cal());
         net_cal = String.valueOf(Integer.parseInt(net_cal)-food.getTotal_cal());
     }
@@ -121,10 +121,10 @@ public class User {
         this.total_cal = total_cal;
     }
 
-    public List<Food> getFood() {
-        return this.foodList;
+    public List<String> getFood() {
+        return this.foodIdList;
     }
-    public void setFood(List<Food> foodList) {
-        this.foodList = foodList;
+    public void setFood(List<String> foodIdList) {
+        this.foodIdList = foodIdList;
     }
 }

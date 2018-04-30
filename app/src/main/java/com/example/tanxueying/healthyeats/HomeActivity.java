@@ -31,7 +31,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private List<String> dataList;
-    private List<Food> foodList;
+    private List<String> foodIdList;
     private List<String> sizeList;
     private ClickItemContentAdapter adapter;
 
@@ -42,7 +42,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     String uid = user.getUid();
     //Get reference of User
     FirebaseDatabase database = FirebaseDatabase.getInstance();
-    final DatabaseReference ref = database.getReference().child(uid);
+    final DatabaseReference ref = database.getReference();
 
 
     @Override
@@ -82,18 +82,19 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 //get the user object
-                User user = dataSnapshot.getValue(User.class);
+                User user = dataSnapshot.child(uid).getValue(User.class);
                 //show the current net calories on the top
                 net_goal.setText(user.getGoal_cal() + "-" + user.getTotal() + "=" + user.getNet());
                 //list all the food records with delete button
                 dataList = new ArrayList<>();
                 sizeList = new ArrayList<>();
-                foodList = user.getFood();
-//                for (Food food : user.getFood()) {
-//                    dataList.add(food.getLabel());
-//                    sizeList.add(food.getSize());
-//
-//                }
+                foodIdList = user.getFood();
+                for (String foodId : user.getFood()) {
+                    Food food = dataSnapshot.child(foodId).getValue(Food.class);
+                    dataList.add(food.getLabel());
+//                    sizeList.add("Serving size: " + food.getSize());
+
+                }
                 for (int i = 0; i < 30; i++) {
                     dataList.add("Sushi"+i );
                     sizeList.add("Serving size: " + i);
@@ -108,7 +109,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         //go to the food information
-                        Food select_food = foodList.get(position);
+//                        String select_food_id = foodIdList.get(position);
 //                        Intent intent = new Intent(HomeActivity.this, FoodInfoActivity.class);
 //                        intent.putExtra("food", select_food)
 //                        startActivity(intent);
@@ -131,7 +132,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         // Attach a listener to read the data at our posts reference
         ref2.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(final DataSnapshot dataSnapshot) {
                 final User user = dataSnapshot.getValue(User.class);
                 switch (v.getId()) {
                     case R.id.iv_del:   //delete button
@@ -150,12 +151,14 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             public void onClick(DialogInterface dialog, int which) {
                                 dataList.remove(position);
                                 //update the food list
-                                Food rm = foodList.get(position);
-                                foodList.remove(position);
-                                user.setFood(foodList);
+                                String rmId = foodIdList.get(position);
+                                Food rmFood = dataSnapshot.child(rmId).getValue(Food.class);
+                                foodIdList.remove(position);
+                                user.setFood(foodIdList);
+                                dataSnapshot.child(rmId).getRef().removeValue();
 //                                update the net cal
-                                user.setTotal("" + (Integer.parseInt(user.getTotal()) - rm.getTotal_cal()));
-                                user.setNet("" + Integer.parseInt(user.getNet() + rm.getTotal_cal()));
+                                user.setTotal("" + (Integer.parseInt(user.getTotal()) - rmFood.getTotal_cal()));
+                                user.setNet("" + Integer.parseInt(user.getNet() + rmFood.getTotal_cal()));
 
                                 adapter.notifyDataSetChanged();
                             }
