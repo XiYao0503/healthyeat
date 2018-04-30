@@ -49,7 +49,7 @@ import java.util.List;
 public class FoodInfoActivity extends AppCompatActivity {
     private static final String TAG = FoodInfoActivity.class.getSimpleName();
     private FirebaseAuth auth = FirebaseAuth.getInstance();
-    DecimalFormat decimalFormat=new DecimalFormat(".00");
+    DecimalFormat decimalFormat = new DecimalFormat(".00");
     //Get the login user
     FirebaseUser user = auth.getCurrentUser();
     //Get the UID
@@ -81,7 +81,7 @@ public class FoodInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.food_info);
 
-        food_name= (TextView) findViewById(R.id.title);
+        food_name = (TextView) findViewById(R.id.title);
         total_kcal = (TextView) findViewById(R.id.total_value);
 
 
@@ -93,7 +93,7 @@ public class FoodInfoActivity extends AppCompatActivity {
         measureLabel = getIntent().getExtras().getString("measureLabel");
         isFromHome = getIntent().getExtras().getString("isFromHome", "False");
 
-        unit = (TextView)findViewById(R.id.unit);
+        unit = (TextView) findViewById(R.id.unit);
         unit.setText(measureLabel);
         food_name.setText(foodLabel);
 
@@ -110,7 +110,7 @@ public class FoodInfoActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 quantity = Float.parseFloat(charSequence.toString());
-                total_kcal.setText(decimalFormat.format(unit_kcal*yield * quantity) +"KCAL");
+                total_kcal.setText(decimalFormat.format(unit_kcal * yield * quantity) + "KCAL");
 
             }
 
@@ -129,7 +129,7 @@ public class FoodInfoActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 quantity = Float.parseFloat(charSequence.toString());
-                total_kcal.setText(decimalFormat.format(unit_kcal*yield * quantity) + "KCAL");
+                total_kcal.setText(decimalFormat.format(unit_kcal * yield * quantity) + "KCAL");
             }
 
             @Override
@@ -141,7 +141,7 @@ public class FoodInfoActivity extends AppCompatActivity {
 
 //        final String yield_string = getIntent().getExtras().getString("yield");
 
-        final ImageButton button_done = (ImageButton)findViewById(R.id.imageButton5);
+        final ImageButton button_done = (ImageButton) findViewById(R.id.imageButton5);
         button_done.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(FoodInfoActivity.this, HomeActivity.class);
@@ -153,16 +153,18 @@ public class FoodInfoActivity extends AppCompatActivity {
             }
         });
 
-        final ImageButton button_back = (ImageButton)findViewById(R.id.imageButton2);
+        final ImageButton button_back = (ImageButton) findViewById(R.id.imageButton2);
         button_back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (isFromHome.equals("False")) {
-                    saveFoodInfo();
-                    finish();
-                } else {
-                    Intent intent = new Intent(FoodInfoActivity.this, HomeActivity.class);
-                    startActivity(intent);
-                }
+                saveFoodInfo();
+                finish();
+//                if (isFromHome.equals("False")) {
+//                    saveFoodInfo();
+//                    finish();
+//                } else {
+//                    Intent intent = new Intent(FoodInfoActivity.this, HomeActivity.class);
+//                    startActivity(intent);
+//                }
             }
         });
 
@@ -179,8 +181,8 @@ public class FoodInfoActivity extends AppCompatActivity {
 
         food.setQuantity(decimalFormat.format(quantity));
         food.setYield(decimalFormat.format(yield));
-        food.setKcal(decimalFormat.format(quantity*unit_kcal));
-        food.setTotal_kcal(decimalFormat.format(quantity* yield*unit_kcal));
+        food.setKcal(decimalFormat.format(quantity * unit_kcal));
+        food.setTotal_kcal(decimalFormat.format(quantity * yield * unit_kcal));
         final DatabaseReference ref = database.getReference().child(uid);
         // Attach a listener to read the data at our posts reference
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -231,7 +233,7 @@ public class FoodInfoActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 //        System.out.println(gson.toJson(jsonObject));
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonObject,  new Response.Listener<JSONObject>() {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonObject, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
@@ -256,8 +258,8 @@ public class FoodInfoActivity extends AppCompatActivity {
             List<JSONObject> ingredientsList = new ArrayList<>();
             JSONObject ingredientObjects = object.getJSONObject("totalNutrients");
             Iterator<String> keys = ingredientObjects.keys();
-            unit_kcal = ((Double)ingredientObjects.getJSONObject("ENERC_KCAL").get("quantity")).floatValue();
-            total_kcal.setText(decimalFormat.format(unit_kcal*yield * quantity) +"KCAL");
+            unit_kcal = ((Double) ingredientObjects.getJSONObject("ENERC_KCAL").get("quantity")).floatValue();
+            total_kcal.setText(decimalFormat.format(unit_kcal * yield * quantity) + "KCAL");
             System.out.println(unit_kcal);
             while (keys.hasNext()) {
                 String key = keys.next();
@@ -266,12 +268,12 @@ public class FoodInfoActivity extends AppCompatActivity {
             }
 
             String[] ingredients = new String[ingredientsList.size()];
-            for(int i = 0; i < ingredientsList.size(); ++i) {
+            for (int i = 0; i < ingredientsList.size(); ++i) {
                 JSONObject cur = ingredientsList.get(i);
                 ingredients[i] = cur.get("label").toString() + ": " + decimalFormat.format(((Double) cur.get("quantity")).floatValue()) + " " + cur.get("unit").toString();
 //                Log.d("bbbbbbbbb", cur.get("label").toString());
 
-                ListView ingredientList = (ListView)findViewById(R.id.ingredient);
+                ListView ingredientList = (ListView) findViewById(R.id.ingredient);
                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.activity_listview, R.id.textView, ingredients);
                 ingredientList.setAdapter(arrayAdapter);
 
@@ -282,7 +284,7 @@ public class FoodInfoActivity extends AppCompatActivity {
             List<Float> yValues = new ArrayList<>();
             float total = 0;
             float sum = 0;
-            for(JSONObject cur : ingredientsList) {
+            for (JSONObject cur : ingredientsList) {
                 if (cur.get("unit").toString().equals("g")) {
                     total += ((Double) cur.get("quantity")).floatValue() * 1000.0f;
                 } else if (cur.get("unit").toString().equals("mg")) {
@@ -290,7 +292,7 @@ public class FoodInfoActivity extends AppCompatActivity {
                 }
             }
 
-            for(JSONObject cur : ingredientsList) {
+            for (JSONObject cur : ingredientsList) {
                 float quantity = 0.0f;
                 if (cur.get("unit").toString().equals("g")) {
                     quantity = ((Double) cur.get("quantity")).floatValue() * 1000.0f;

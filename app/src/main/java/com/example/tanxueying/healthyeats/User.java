@@ -24,6 +24,8 @@ public class User {
         this.height = height;
         this.weight = weight;
         this.exercise = exercise;
+        this.total_cal = 0 + "";
+        this.net_cal = 0 + "";
     }
 
     public String getUsername() {
@@ -91,8 +93,8 @@ public class User {
             c = 665.09 + (9.56 * w) + (1.84 * h) - (4.67 * a) + e;
         }
         this.goal_cal = String.valueOf(c.intValue());
-        this.net_cal = goal_cal;
-        this.total_cal = 0 + "";
+        this.net_cal = this.net_cal.equals("0")? goal_cal:String.valueOf(Float.parseFloat(goal_cal)-Float.parseFloat(total_cal));;
+
     }
     public void addFood(Food food) {
         // update food list

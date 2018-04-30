@@ -111,22 +111,29 @@ public class ProfileActivity extends AppCompatActivity {
                         //if no user input, keep the old value by default
                         if (!new_username.isEmpty()) {
                             user.setUsername(new_username);
+                            ref.child("username").setValue(new_username);
                         }
                         if (!new_age.isEmpty()) {
                             user.setAge(new_age);
+                            ref.child("age").setValue(new_age);
                         }
                         if (!new_weight.isEmpty()) {
                             user.setWeight(new_weight);
+                            ref.child("weight").setValue(new_weight);
                         }
                         if (!new_height.isEmpty()) {
                             user.setHeight(new_height);
+                            ref.child("height").setValue(new_height);
 
                         }
                         if (!new_exercise.isEmpty()) {
                             user.setExercise(new_exercise);
+                            ref.child("exercise").setValue(new_exercise);
                         }
                         user.setCal();
-                        ref.setValue(user);
+                        ref.child("goal_cal").setValue(user.getGoal_cal());
+                        ref.child("net").setValue(user.getNet());
+
                         Toast.makeText(ProfileActivity.this, "Change Saved!", Toast.LENGTH_SHORT).show();
                     }
 

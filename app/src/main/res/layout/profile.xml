@@ -144,7 +144,7 @@
                 android:ems="10"
                 android:gravity="center_vertical"
                 android:hint="@string/age"
-                android:inputType="textPersonName"
+                android:inputType="numberDecimal"
                 android:textAlignment="inherit" />
 
 
@@ -191,7 +191,7 @@
                 android:ems="10"
                 android:gravity="center_vertical"
                 android:hint="@string/height"
-                android:inputType="textPersonName"
+                android:inputType="numberDecimal"
                 android:textAlignment="inherit" />
 
 
@@ -238,7 +238,7 @@
                 android:ems="10"
                 android:gravity="center_vertical"
                 android:hint="@string/curweight"
-                android:inputType="textPersonName"
+                android:inputType="numberDecimal"
                 android:textAlignment="inherit" />
 
 
@@ -285,7 +285,7 @@
                 android:ems="10"
                 android:gravity="center_vertical"
                 android:hint="@string/daily_exercise"
-                android:inputType="textPersonName"
+                android:inputType="numberDecimal"
                 android:textAlignment="inherit" />
 
 
