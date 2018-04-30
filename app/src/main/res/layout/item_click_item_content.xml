@@ -18,12 +18,12 @@
             android:layout_weight="1"
             android:gravity="start"
             android:orientation="vertical"
-            android:paddingEnd="@dimen/dp30"
             android:paddingLeft="@dimen/dp30"
             android:paddingStart="@dimen/dp30"
             android:text="@string/user"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="15sp"
             tools:ignore="Suspicious0dp" />
 
         <TextView
@@ -37,8 +37,9 @@
             android:paddingLeft="@dimen/dp30"
             android:paddingStart="@dimen/dp30"
             android:text="@string/user"
+
             android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="10sp" />
     </LinearLayout>
 
 
