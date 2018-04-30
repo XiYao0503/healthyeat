@@ -27,6 +27,7 @@
     <string name="serve">Serving Size</string>
     <string name="numver_serve">Number of Servings</string>
     <string name="login">Login</string>
+    <string name="delete">Delete</string>
 
     <string name = "calory_num"> 1677  -  894  =   1018 </string>
     <string name="goal">Goal  -  total food  =  Net</string>

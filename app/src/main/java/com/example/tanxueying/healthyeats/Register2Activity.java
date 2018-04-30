@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -108,20 +109,7 @@ public class Register2Activity extends AppCompatActivity {
                                     //save to database
                                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                                     final DatabaseReference ref = database.getReference();
-
-                                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            ref.child(uid).setValue(newUser);
-                                            Toast.makeText(Register2Activity.this, "Register Successfully.", Toast.LENGTH_SHORT).show();
-                                        }
-                                        @Override
-                                        public void onCancelled(DatabaseError databaseError) {
-
-                                        }
-
-                                    });
-
+                                    ref.child(uid).setValue(newUser);
                                     //go to login
                                     startActivity(new Intent(Register2Activity.this, LoginActivity.class));
                                     finish();

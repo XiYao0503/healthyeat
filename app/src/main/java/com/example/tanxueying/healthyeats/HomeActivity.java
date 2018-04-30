@@ -32,6 +32,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     private FirebaseAuth auth = FirebaseAuth.getInstance();
     private List<String> dataList;
     private List<Food> foodList;
+    private List<String> sizeList;
     private ClickItemContentAdapter adapter;
 
 
@@ -86,16 +87,20 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 net_goal.setText(user.getGoal_cal() + "-" + user.getTotal() + "=" + user.getNet());
                 //list all the food records with delete button
                 dataList = new ArrayList<>();
+                sizeList = new ArrayList<>();
                 foodList = user.getFood();
 //                for (Food food : user.getFood()) {
 //                    dataList.add(food.getLabel());
+//                    sizeList.add(food.getSize());
+//
 //                }
                 for (int i = 0; i < 30; i++) {
                     dataList.add("Sushi"+i );
+                    sizeList.add("Serving size: " + i);
                 }
 
                 ListView listView = (ListView) findViewById(R.id.scrollView2);
-                adapter = new ClickItemContentAdapter(HomeActivity.this, dataList);
+                adapter = new ClickItemContentAdapter(HomeActivity.this, dataList, sizeList);
                 listView.setAdapter(adapter);
 
 
@@ -104,9 +109,9 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         //go to the food information
                         Food select_food = foodList.get(position);
-                        Intent intent = new Intent(HomeActivity.this, FoodInfoActivity.class);
+//                        Intent intent = new Intent(HomeActivity.this, FoodInfoActivity.class);
 //                        intent.putExtra("food", select_food)
-                        startActivity(intent);
+//                        startActivity(intent);
                     }
                 });
             }
@@ -145,12 +150,12 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                             public void onClick(DialogInterface dialog, int which) {
                                 dataList.remove(position);
                                 //update the food list
-//                                Food rm = foodList.get(position);
-//                                foodList.remove(position);
-//                                user.setFood(foodList);
-                                //update the net cal
-//                                user.setTotal(Integer.parseInt(user.getTotal()) - rm.getTotal_cal());
-//                                user.setNet(Integer.parseInt(user.getNet() + rm.getTotal_cal()));
+                                Food rm = foodList.get(position);
+                                foodList.remove(position);
+                                user.setFood(foodList);
+//                                update the net cal
+                                user.setTotal("" + (Integer.parseInt(user.getTotal()) - rm.getTotal_cal()));
+                                user.setNet("" + Integer.parseInt(user.getNet() + rm.getTotal_cal()));
 
                                 adapter.notifyDataSetChanged();
                             }
