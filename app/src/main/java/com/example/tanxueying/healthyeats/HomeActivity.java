@@ -88,7 +88,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 User user = dataSnapshot.getValue(User.class);
 
                 //show the current net calories on the top
-                net_goal.setText(user.getGoal_cal() + "-" + user.getTotal() + "=" + user.getNet());
+                net_goal.setText(user.getGoal_cal() + "-" + user.getTotal() + "=" + String.format("%.02f",Float.parseFloat(user.getNet())));
                 //list all the food records with delete button
                 dataList = new ArrayList<>();
                 sizeList = new ArrayList<>();

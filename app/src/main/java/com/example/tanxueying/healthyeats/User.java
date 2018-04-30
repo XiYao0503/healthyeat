@@ -99,8 +99,8 @@ public class User {
     public void addFood(Food food) {
         // update food list
         // update net
-        total_cal = String.valueOf(Float.parseFloat(total_cal)+Float.parseFloat(food.getTotal_kcal())*1.0f);
-        net_cal = String.valueOf(Float.parseFloat(net_cal)-Float.parseFloat(food.getTotal_kcal()) * 1.0f);
+        total_cal = String.valueOf(Float.parseFloat(total_cal)+Float.parseFloat(food.getTotal_kcal()));
+        net_cal = String.valueOf(Float.parseFloat(net_cal)-Float.parseFloat(food.getTotal_kcal()));
 
     }
 
