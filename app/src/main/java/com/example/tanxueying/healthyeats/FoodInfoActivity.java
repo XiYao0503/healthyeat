@@ -63,12 +63,14 @@ public class FoodInfoActivity extends AppCompatActivity {
     private EditText serving_size;
     private EditText num_of_serving;
     private TextView total_kcal;
+    private TextView food_name;
     private float yield = 1.0f;
     private float quantity = 1.0f;
     private String foodLabel;
     private String foodURI;
     private String measureURI;
     private String measureLabel;
+    private String title;
 
     private float unit_kcal;
 
@@ -77,8 +79,8 @@ public class FoodInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.food_info);
 
-        final TextView food_name = (TextView) findViewById(R.id.title);
-        food_name.setText(foodLabel);
+        food_name= (TextView) findViewById(R.id.title);
+
 
 
         foodLabel = getIntent().getExtras().getString("foodLabel");
@@ -88,10 +90,11 @@ public class FoodInfoActivity extends AppCompatActivity {
 
         unit = (TextView)findViewById(R.id.unit);
         unit.setText(measureLabel);
+        food_name.setText(foodLabel);
 
         serving_size = (EditText) findViewById(R.id.size_input);
         num_of_serving = (EditText) findViewById(R.id.number_input);
-        total_kcal = (TextView) findViewById(R.id.total_value);
+        showInfomation(foodURI, measureURI);
 
         serving_size.addTextChangedListener(new TextWatcher() {
             @Override
@@ -129,7 +132,7 @@ public class FoodInfoActivity extends AppCompatActivity {
 
             }
         });
-        showInfomation(foodURI, measureURI);
+
 
 
 
@@ -147,9 +150,8 @@ public class FoodInfoActivity extends AppCompatActivity {
         final ImageButton button_back = (ImageButton)findViewById(R.id.imageButton2);
         button_back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(FoodInfoActivity.this, UserInputActivity.class);
                 saveFoodInfo();
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -212,7 +214,6 @@ public class FoodInfoActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Gson gson = new Gson();
 //        System.out.println(gson.toJson(jsonObject));
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, url, jsonObject,  new Response.Listener<JSONObject>() {
 
@@ -240,6 +241,9 @@ public class FoodInfoActivity extends AppCompatActivity {
             JSONObject ingredientObjects = object.getJSONObject("totalNutrients");
             Iterator<String> keys = ingredientObjects.keys();
             unit_kcal = ((Double)ingredientObjects.getJSONObject("ENERC_KCAL").get("quantity")).floatValue();
+            total_kcal = (TextView) findViewById(R.id.total_value);
+            total_kcal.setText(decimalFormat.format(unit_kcal*yield * quantity) +"KCAL");
+            System.out.println(unit_kcal);
             while (keys.hasNext()) {
                 String key = keys.next();
                 JSONObject value = ingredientObjects.getJSONObject(key);
