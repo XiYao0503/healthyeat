@@ -36,7 +36,7 @@ public class Ingredient {
 
     private String foodURI;
     public Ingredient (String measureURI, String foodURI) {
-        this.quantity = Constant.getQUANTITY();
+        this.quantity = 1;
         this.measureURI = measureURI;
         this.foodURI = foodURI;
     }

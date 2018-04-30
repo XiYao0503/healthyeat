@@ -101,6 +101,7 @@
                 <EditText
                     android:id="@+id/size_input"
                     android:layout_width="37dp"
+                    android:text="1.0"
                     android:layout_height="match_parent"
                     android:inputType="numberDecimal" />
 
@@ -136,6 +137,7 @@
                 <EditText
                     android:id="@+id/number_input"
                     android:layout_width="37dp"
+                    android:text="1.0"
                     android:layout_height="match_parent"
                     android:layout_marginEnd="10dp"
                     android:layout_marginRight="10dp"
@@ -160,6 +162,28 @@
             android:id="@+id/piechart"
             android:layout_width="252dp"
             android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/total_kcal"
+                android:layout_width="match_parent"
+                android:layout_height="99dp"
+                android:text="@string/total_kcal"
+                android:gravity="bottom|center_horizontal"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/total_value"
+                android:layout_width="match_parent"
+                android:layout_height="104dp"
+                android:text=""
+                android:gravity="top|center_horizontal"/>
+        </LinearLayout>
+
     </LinearLayout>
 
     <ListView

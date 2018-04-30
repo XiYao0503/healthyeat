@@ -149,8 +149,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 //                                foodList.remove(position);
 //                                user.setFood(foodList);
                                 //update the net cal
-//                                user.setTotal(Integer.parseInt(user.getTotal()) - rm.getTotal_cal());
-//                                user.setNet(Integer.parseInt(user.getNet() + rm.getTotal_cal()));
+//                                user.setTotal(Integer.parseInt(user.getTotal()) - rm.getTotal_kcal());
+//                                user.setNet(Integer.parseInt(user.getNet() + rm.getTotal_kcal()));
 
                                 adapter.notifyDataSetChanged();
                             }

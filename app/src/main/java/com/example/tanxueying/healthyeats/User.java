@@ -101,8 +101,8 @@ public class User {
         // update food list
         // update net
         foodList.add(food);
-        total_cal = String.valueOf(Integer.parseInt(total_cal)+food.getTotal_cal());
-        net_cal = String.valueOf(Integer.parseInt(net_cal)-food.getTotal_cal());
+        total_cal = String.valueOf(Float.parseFloat(total_cal)+Float.parseFloat(food.getTotal_kcal()));
+        net_cal = String.valueOf(Float.parseFloat(net_cal)-Float.parseFloat(food.getTotal_kcal()));
     }
 
     public String getNet() {
