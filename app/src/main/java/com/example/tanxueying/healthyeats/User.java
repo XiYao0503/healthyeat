@@ -92,15 +92,15 @@ public class User {
         } else {
             c = 665.09 + (9.56 * w) + (1.84 * h) - (4.67 * a) + e;
         }
-        this.goal_cal = String.valueOf(c.intValue());
+        this.goal_cal = String.format("%.02f", c);
         this.net_cal = this.net_cal.equals("0")? goal_cal:String.valueOf(Float.parseFloat(goal_cal)-Float.parseFloat(total_cal));;
 
     }
     public void addFood(Food food) {
         // update food list
         // update net
-        total_cal = String.valueOf(Float.parseFloat(total_cal)+Float.parseFloat(food.getTotal_kcal()));
-        net_cal = String.valueOf(Float.parseFloat(net_cal)-Float.parseFloat(food.getTotal_kcal()));
+        total_cal = String.valueOf(Float.parseFloat(total_cal)+Float.parseFloat(food.getTotal_kcal())*1.0f);
+        net_cal = String.valueOf(Float.parseFloat(net_cal)-Float.parseFloat(food.getTotal_kcal()) * 1.0f);
 
     }
 
