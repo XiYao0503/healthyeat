@@ -1,5 +1,6 @@
 package com.example.tanxueying.healthyeats;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -73,6 +74,7 @@ public class FoodInfoActivity extends AppCompatActivity {
     private String title;
     private int position;
     private String isFromHome;
+    private String isFromInput;
 
     private float unit_kcal;
 
@@ -144,9 +146,14 @@ public class FoodInfoActivity extends AppCompatActivity {
         final ImageButton button_done = (ImageButton) findViewById(R.id.imageButton5);
         button_done.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(FoodInfoActivity.this, HomeActivity.class);
-                saveFoodInfo();
-                startActivity(intent);
+                if (!isFromHome.equals("False")) {
+                    Intent intent = new Intent(FoodInfoActivity.this, HomeActivity.class);
+                    saveFoodInfo();
+                    startActivity(intent);
+                } else {
+                    saveFoodInfo();
+                    finish();
+                }
 
             }
         });
@@ -155,7 +162,7 @@ public class FoodInfoActivity extends AppCompatActivity {
         button_back.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (isFromHome.equals("False")) {
-                    saveFoodInfo();
+
                     finish();
                 } else {
                     Intent intent = new Intent(FoodInfoActivity.this, HomeActivity.class);
