@@ -74,7 +74,6 @@ public class FoodInfoActivity extends AppCompatActivity {
     private String title;
     private int position;
     private String isFromHome;
-    private String isFromInput;
 
     private float unit_kcal;
 

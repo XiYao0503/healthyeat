@@ -33,7 +33,6 @@
             android:layout_weight="1"
             android:gravity="start"
             android:orientation="vertical"
-            android:paddingEnd="@dimen/dp30"
             android:paddingLeft="@dimen/dp30"
             android:paddingStart="@dimen/dp30"
             android:text="@string/user"
@@ -48,7 +47,6 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="@dimen/dp10"
         android:layout_marginRight="@dimen/dp10"
         android:background="@android:drawable/ic_delete"
         android:contentDescription="@string/delete" />
