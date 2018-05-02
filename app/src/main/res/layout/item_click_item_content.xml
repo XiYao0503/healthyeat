@@ -6,40 +6,46 @@
     android:orientation="horizontal">
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_title"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="start"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/dp30"
-            android:paddingStart="@dimen/dp30"
-            android:text="@string/user"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            tools:ignore="Suspicious0dp" />
 
-        <TextView
-            android:id="@+id/tv_size"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="start"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/dp30"
-            android:paddingStart="@dimen/dp30"
-            android:text="@string/user"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:orientation="vertical">
 
-            android:textColor="@color/black"
-            android:textSize="10sp" />
-    </LinearLayout>
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dp30"
+                android:paddingStart="@dimen/dp30"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="@string/user"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                tools:ignore="Suspicious0dp" />
+
+
+            <TextView
+                android:id="@+id/tv_size"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="start"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/dp30"
+                android:paddingStart="@dimen/dp30"
+                android:text="@string/user"
+
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+        </LinearLayout>
+
 
 
     <ImageView

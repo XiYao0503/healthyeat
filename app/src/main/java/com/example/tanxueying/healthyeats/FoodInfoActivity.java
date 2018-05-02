@@ -43,6 +43,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -191,10 +193,13 @@ public class FoodInfoActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
+                //get the current date
+                String date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+                System.out.println("current date:" + date);
                 //update the food record
-                String foodId = ref.child("food").push().getKey();
+                String foodId = ref.child("food").child(date).push().getKey();
                 Log.e("foodid", foodId);
-                ref.child("food").child(foodId).setValue(food);
+                ref.child("food").child(date).child(foodId).setValue(food);
                 user.addFood(food);
                 ref.child("total").setValue(user.getTotal());
                 ref.child("net").setValue(user.getNet());
