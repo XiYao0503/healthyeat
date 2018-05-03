@@ -77,7 +77,7 @@ public class FoodInfoActivity extends AppCompatActivity {
     private int position;
     private String isFromHome;
 
-    private float unit_kcal;
+    private float unit_kcal = 0.0f;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -278,8 +278,11 @@ public class FoodInfoActivity extends AppCompatActivity {
             List<JSONObject> ingredientsList = new ArrayList<>();
             JSONObject ingredientObjects = object.getJSONObject("totalNutrients");
             Iterator<String> keys = ingredientObjects.keys();
-            unit_kcal = ((Double) ingredientObjects.getJSONObject("ENERC_KCAL").get("quantity")).floatValue();
-            total_kcal.setText(decimalFormat.format(unit_kcal * yield * quantity) + "KCAL");
+            if (ingredientObjects.has("ENERC_KCAL")) {
+                unit_kcal = ((Double) ingredientObjects.getJSONObject("ENERC_KCAL").get("quantity")).floatValue();
+                total_kcal.setText(decimalFormat.format(unit_kcal * yield * quantity) + "KCAL");
+            }
+
             System.out.println(unit_kcal);
             System.out.println("=========================");
             while (keys.hasNext()) {

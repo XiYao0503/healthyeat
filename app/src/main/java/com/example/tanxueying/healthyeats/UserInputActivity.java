@@ -260,15 +260,25 @@ public class UserInputActivity extends AppCompatActivity {
                 // transfer the data to the next page
                 try {
                     food = al.get(i).getJSONObject("food");
+                    JSONArray ja = al.get(i).getJSONArray("measures");
                     if (measure == null) {
-                        measure = al.get(i).getJSONArray("measures").getJSONObject(0);
+                        measure = ja.getJSONObject(0);
+                    } else {
+                        boolean matched = false;
+                        for (int k = 0; k< ja.length(); k++) {
+                            if (ja.getJSONObject(k).get("label").toString().equals(measure.get("label").toString())) {
+                                matched = true;
+                            }
+                        }
+                        if (!matched) {
+                            measure = ja.getJSONObject(0);
+                        }
                     }
                     intent.putExtra("foodURI", food.get("uri").toString());
                     intent.putExtra("foodLabel", food.get("label").toString());
                     intent.putExtra("measureURI", measure.get("uri").toString());
                     intent.putExtra("measureLabel", measure.get("label").toString());
                     intent.putExtra("quantity", quantity);
-                    System.out.println(quantity);
                     intent.putExtra("position", -1);
                 } catch (JSONException e) {
                     e.printStackTrace();
