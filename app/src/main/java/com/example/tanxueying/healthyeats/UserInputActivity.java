@@ -86,10 +86,15 @@ import com.example.tanxueying.healthyeats.R;
 public class UserInputActivity extends AppCompatActivity {
     private static final String IMAGE_DIRECTORY = "/demonuts";
     private int GALLERY = 1, CAMERA = 2;
-    private List<JSONObject> al;
-    private List<String> list;
+    private List<JSONObject> al = new ArrayList<>();
+    private List<String> list = new ArrayList<>();
     private EditText input;
     private ListView foodList;
+    private JSONObject food;
+    private JSONObject measure;
+    private JSONObject measureURI;
+    private String quantity;
+    private ArrayAdapter<String> adapter;
 //    private String selectedFood;
     ProgressDialog dialog;
     private static final String TAG = UserInputActivity.class.getSimpleName();
@@ -109,6 +114,8 @@ public class UserInputActivity extends AppCompatActivity {
                 Log.d(TAG, text);
                 if (TextUtils.isEmpty(input.getText().toString().trim())) {
                     Toast.makeText(getApplicationContext(), "Please Enter Food Name", Toast.LENGTH_SHORT).show();
+                    list.clear();
+                    foodList.setAdapter(null);
                     return;
                 }
                 List<String> list = new ArrayList<>();
@@ -175,6 +182,7 @@ public class UserInputActivity extends AppCompatActivity {
         list = new ArrayList<>();
         for (String text: text_list) {
             String url = generateUrl(text);
+            System.out.println(url);
             Log.d(TAG, url);
 
             JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,  new Response.Listener<JSONObject>() {
@@ -186,7 +194,9 @@ public class UserInputActivity extends AppCompatActivity {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError volleyError) {
-                    Toast.makeText(getApplicationContext(), "can not parse the url!!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "oops, can't find the food, please change a food name!", Toast.LENGTH_SHORT).show();
+                    list.clear();
+                    foodList.setAdapter(null);
                     dialog.dismiss();
                 }
             });
@@ -201,12 +211,25 @@ public class UserInputActivity extends AppCompatActivity {
     }
 
     private void parseJsonData(JSONObject object, final List<JSONObject> al, List<String> list) {
-        System.out.println("before add+++++++++++++++++++++++++++");
-        System.out.println(list.size());
+
         try {
             JSONArray foodArray = object.getJSONArray("hints");
-
+            JSONArray parsedArray = object.getJSONArray("parsed");
+            if (foodArray.length() == 0) {
+                System.out.println("oops, can't find the food, please change a food name!");
+                Toast.makeText(getApplicationContext(), "oops, can't find the food, please change a food name!", Toast.LENGTH_SHORT).show();
+                list.clear();
+                foodList.setAdapter(null);
+                return;
+            }
+            if (parsedArray.length() > 0 && parsedArray.getJSONObject(0).has("quantity")) {
+                quantity = parsedArray.getJSONObject(0).get("quantity").toString();
+            }
+            if (parsedArray.length() > 0 && parsedArray.getJSONObject(0).has("measure")) {
+                measure = parsedArray.getJSONObject(0).getJSONObject("measure");
+            }
             Set<String> set = new HashSet<>();
+
             for(int i = 0; i < foodArray.length(); ++i) {
                 JSONObject cur = foodArray.getJSONObject(i);
                 String s = cur.getJSONObject("food").get("label").toString();
@@ -219,8 +242,7 @@ public class UserInputActivity extends AppCompatActivity {
                 ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, list);
                 foodList.setAdapter(adapter);
             }
-            System.out.println("after add==================================");
-            System.out.println(list.size());
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -237,13 +259,16 @@ public class UserInputActivity extends AppCompatActivity {
                 Intent intent = new Intent(UserInputActivity.this, FoodInfoActivity.class);
                 // transfer the data to the next page
                 try {
-                    JSONObject food = al.get(i).getJSONObject("food");
-                    JSONObject measure = al.get(i).getJSONArray("measures").getJSONObject(0);
+                    food = al.get(i).getJSONObject("food");
+                    if (measure == null) {
+                        measure = al.get(i).getJSONArray("measures").getJSONObject(0);
+                    }
                     intent.putExtra("foodURI", food.get("uri").toString());
                     intent.putExtra("foodLabel", food.get("label").toString());
                     intent.putExtra("measureURI", measure.get("uri").toString());
                     intent.putExtra("measureLabel", measure.get("label").toString());
-                    System.out.println(measure.get("label").toString());
+                    intent.putExtra("quantity", quantity);
+                    System.out.println(quantity);
                     intent.putExtra("position", -1);
                 } catch (JSONException e) {
                     e.printStackTrace();

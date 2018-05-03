@@ -84,7 +84,7 @@ public class FoodInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.food_info);
 
-        food_name = (TextView) findViewById(R.id.title);
+        food_name = (TextView) findViewById(R.id.food_title);
         total_kcal = (TextView) findViewById(R.id.total_value);
 
 
@@ -94,6 +94,8 @@ public class FoodInfoActivity extends AppCompatActivity {
         foodURI = getIntent().getExtras().getString("foodURI");
         measureURI = getIntent().getExtras().getString("measureURI");
         measureLabel = getIntent().getExtras().getString("measureLabel");
+        if (getIntent().getExtras().getString("quantity") != null)
+            quantity = Float.valueOf(getIntent().getExtras().getString("quantity"));
         isFromHome = getIntent().getExtras().getString("isFromHome", "False");
 
         unit = (TextView) findViewById(R.id.unit);
@@ -101,6 +103,7 @@ public class FoodInfoActivity extends AppCompatActivity {
         food_name.setText(foodLabel);
 
         serving_size = (EditText) findViewById(R.id.size_input);
+        serving_size.setText(decimalFormat.format(quantity));
         num_of_serving = (EditText) findViewById(R.id.number_input);
         showInfomation(foodURI, measureURI);
 
@@ -112,7 +115,12 @@ public class FoodInfoActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                quantity = Float.parseFloat(charSequence.toString());
+                if (charSequence == null || charSequence.length() == 0) {
+                    quantity =0.0f;
+                } else {
+                    quantity = Float.parseFloat(charSequence.toString());
+
+                }
                 total_kcal.setText(decimalFormat.format(unit_kcal * yield * quantity) + "KCAL");
 
             }
@@ -131,7 +139,12 @@ public class FoodInfoActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                quantity = Float.parseFloat(charSequence.toString());
+                if (charSequence == null || charSequence.length() == 0) {
+                    yield =0.0f;
+                } else {
+                    yield = Float.parseFloat(charSequence.toString());
+
+                }
                 total_kcal.setText(decimalFormat.format(unit_kcal * yield * quantity) + "KCAL");
             }
 
@@ -268,6 +281,7 @@ public class FoodInfoActivity extends AppCompatActivity {
             unit_kcal = ((Double) ingredientObjects.getJSONObject("ENERC_KCAL").get("quantity")).floatValue();
             total_kcal.setText(decimalFormat.format(unit_kcal * yield * quantity) + "KCAL");
             System.out.println(unit_kcal);
+            System.out.println("=========================");
             while (keys.hasNext()) {
                 String key = keys.next();
                 JSONObject value = ingredientObjects.getJSONObject(key);
@@ -340,6 +354,8 @@ public class FoodInfoActivity extends AppCompatActivity {
         PieChart pieChart = (PieChart) findViewById(R.id.piechart);
         pieChart.setData(data);
         pieChart.invalidate();
+
+        // set a title in the piechart with food name
 
     }
 
