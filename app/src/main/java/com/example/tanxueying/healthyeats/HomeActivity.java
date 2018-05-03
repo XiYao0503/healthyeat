@@ -24,7 +24,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
 
@@ -46,6 +48,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     //Get reference of User
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     final DatabaseReference ref = database.getReference().child(uid);
+    String date = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
 
 
     @Override
@@ -95,8 +98,8 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
                 foodIdList = new ArrayList<>();
 
-                if (dataSnapshot.child("food").getValue() != null) {
-                    for (DataSnapshot emp : dataSnapshot.child("food").getChildren()) {
+                if (dataSnapshot.child("food").child(date).getValue() != null) {
+                    for (DataSnapshot emp : dataSnapshot.child("food").child(date).getChildren()) {
                         Food food = emp.getValue(Food.class);
                         dataList.add(food.getLabel());
                         foodIdList.add(emp.getKey());
@@ -113,8 +116,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         //go to the food information
+
                         String foodId = foodIdList.get(position);
-                        Food select_food = dataSnapshot.child("food").child(foodId).getValue(Food.class);
+
+                        Food select_food = dataSnapshot.child("food").child(date).child(foodId).getValue(Food.class);
                         Intent intent = new Intent(HomeActivity.this, FoodInfoActivity.class);
                         intent.putExtra("foodURI", select_food.getLabelUrl());
                         System.out.println(select_food.getLabel());
@@ -165,10 +170,10 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                                 sizeList.remove(position);
                                 String foodId = foodIdList.get(position);
                                 foodIdList.remove(position);
-                                Food rm = dataSnapshot.child("food").child(foodId).getValue(Food.class);
+                                Food rm = dataSnapshot.child("food").child(date).child(foodId).getValue(Food.class);
 
                                 //update the food list
-                                dataSnapshot.child("food").child(foodId).getRef().removeValue();
+                                dataSnapshot.child("food").child(date).child(foodId).getRef().removeValue();
                                 //update the net cal
                                 user.setTotal(String.valueOf(Float.parseFloat(user.getTotal()) - Float.parseFloat(rm.getTotal_kcal())));
                                 user.setNet(String.valueOf(Float.parseFloat(user.getNet()) + Float.parseFloat(rm.getTotal_kcal())));
