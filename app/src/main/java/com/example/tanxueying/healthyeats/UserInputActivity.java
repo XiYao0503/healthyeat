@@ -414,18 +414,19 @@ public class UserInputActivity extends AppCompatActivity {
 //                        Toast.makeText(UserInputActivity.this, resultDialogItems[which] + isChecked, Toast.LENGTH_SHORT).show();
                     }
                 });
-        resultDialog.setPositiveButton("Done", new DialogInterface.OnClickListener() {
+        resultDialog.setPositiveButton("Done",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-                List<String> text_list = new ArrayList<>();
-                for (int i = 0; i < selected.length; i++) {
-                    if( selected[i]) text_list.add(resultDialogItems[i]);
-                }
-                findFood(text_list);
-//                Toast.makeText(UserInputActivity.this, "Done", Toast.LENGTH_SHORT).show();
-            }
+                        List<String> text_list = new ArrayList<>();
+                        for (int i = 0; i < selected.length; i++) {
+                            if( selected[i]) text_list.add(resultDialogItems[i]);
+                        }
+                        findFood(text_list);
+        //                Toast.makeText(UserInputActivity.this, "Done", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                    }
         });
         resultDialog.create().show();
 
@@ -442,7 +443,7 @@ public class UserInputActivity extends AppCompatActivity {
 //                        }
 //                    }
 //                });
-        resultDialog.show();
+//        resultDialog.show();
     }
 
 
