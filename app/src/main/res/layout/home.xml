@@ -276,8 +276,8 @@
 
             <TextView
                 android:id="@+id/textView11"
-                android:layout_width="203dp"
-                android:layout_height="37dp"
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_weight="1"
                 android:text="apple, raw, with skin"
@@ -294,6 +294,13 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/iv_del"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="@dimen/dp10"
+                android:background="@android:drawable/ic_delete"
+                android:contentDescription="@string/delete" />
         </LinearLayout>
 
         <LinearLayout
@@ -322,6 +329,13 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/iv_del"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="@dimen/dp10"
+                android:background="@android:drawable/ic_delete"
+                android:contentDescription="@string/delete" />
         </LinearLayout>
 
         <LinearLayout
@@ -350,6 +364,13 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium.Inverse"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/iv_del"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="@dimen/dp10"
+                android:background="@android:drawable/ic_delete"
+                android:contentDescription="@string/delete" />
         </LinearLayout>
     </LinearLayout>
 
