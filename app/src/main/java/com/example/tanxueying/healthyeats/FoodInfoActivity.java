@@ -84,7 +84,7 @@ public class FoodInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.food_info);
 
-        food_name = (TextView) findViewById(R.id.food_title);
+        food_name = (TextView) findViewById(R.id.title);
         total_kcal = (TextView) findViewById(R.id.total_value);
 
 
