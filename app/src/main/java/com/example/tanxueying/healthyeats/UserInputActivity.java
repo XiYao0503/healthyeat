@@ -92,7 +92,8 @@ public class UserInputActivity extends AppCompatActivity {
     private ListView foodList;
     private JSONObject food;
     private JSONObject measure;
-    private JSONObject measureURI;
+    private String measure_label;
+    private String measure_URI;
     private String quantity;
     private ArrayAdapter<String> adapter;
 //    private String selectedFood;
@@ -227,6 +228,9 @@ public class UserInputActivity extends AppCompatActivity {
             }
             if (parsedArray.length() > 0 && parsedArray.getJSONObject(0).has("measure")) {
                 measure = parsedArray.getJSONObject(0).getJSONObject("measure");
+//                measure_label = measure.get("label").toString();
+//                measure_URI = measure.get("uri").toString();
+                System.out.println(measure.get("label").toString());
             }
             Set<String> set = new HashSet<>();
 
@@ -262,15 +266,19 @@ public class UserInputActivity extends AppCompatActivity {
                     food = al.get(i).getJSONObject("food");
                     JSONArray ja = al.get(i).getJSONArray("measures");
                     if (measure == null) {
+                        System.out.println("measure is null +++++++++++++++++");
                         measure = ja.getJSONObject(0);
                     } else {
                         boolean matched = false;
                         for (int k = 0; k< ja.length(); k++) {
-                            if (ja.getJSONObject(k).get("label").toString().equals(measure.get("label").toString())) {
+                            System.out.println(ja.getJSONObject(k).get("label").toString());
+                            if (ja.getJSONObject(k).get("label").toString().equalsIgnoreCase(measure.get("label").toString())) {
                                 matched = true;
+                                break;
                             }
                         }
                         if (!matched) {
+                            System.out.println("update food measure+++++++++++++++");
                             measure = ja.getJSONObject(0);
                         }
                     }
